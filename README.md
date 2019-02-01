@@ -15,6 +15,8 @@ year={2018}
 
 CASIA WebFace DataSet, 494,414 faces over 10,575 identities.
 
+![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/sample.jpg)
+
 ## Dependencies
 - PyTorch 1.0.0
 
