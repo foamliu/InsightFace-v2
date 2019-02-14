@@ -1,4 +1,6 @@
+import os
 from datetime import datetime
+from shutil import copyfile
 
 import numpy as np
 import torch
@@ -12,6 +14,16 @@ from focal_loss import FocalLoss
 from lfw_eval import lfw_test
 from models import resnet18, resnet34, resnet50, resnet101, resnet152, resnet_face18, ArcMarginModel
 from utils import parse_args, save_checkpoint, AverageMeter, clip_gradient, accuracy
+
+
+def full_log(epoch):
+    full_log_dir = 'data/full_log'
+    if not os.path.isdir(full_log_dir):
+        os.mkdir(full_log_dir)
+    filename = 'angles_{}.txt'.format(epoch)
+    dst_file = os.path.join(full_log_dir, filename)
+    src_file = 'data/angles.txt'
+    copyfile(src_file, dst_file)
 
 
 def train_net(args):
@@ -80,6 +92,11 @@ def train_net(args):
     for epoch in range(start_epoch, args.end_epoch):
         scheduler.step()
 
+        if args.full_log:
+            lfw_acc, threshold = lfw_test(model)
+            writer.add_scalar('LFW Accuracy', lfw_acc, epoch)
+            full_log(epoch)
+
         start = datetime.now()
         # One epoch's training
         train_loss, train_top5_accs = train(train_loader=train_loader,
@@ -97,7 +114,7 @@ def train_net(args):
         print('{} seconds'.format(delta.seconds))
 
         # One epoch's validation
-        if epoch > 10 and epoch % 2 == 0:
+        if epoch > 10 and epoch % 2 == 0 and not args.full_log:
             start = datetime.now()
             lfw_acc, threshold = lfw_test(model)
             writer.add_scalar('LFW Accuracy', lfw_acc, epoch)

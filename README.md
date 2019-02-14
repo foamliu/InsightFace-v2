@@ -10,12 +10,9 @@ journal={arXiv:1801.07698},
 year={2018}
 }
 ```
-
 ## DataSet
 
 CASIA WebFace DataSet, 494,414 faces over 10,575 identities.
-
-![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/sample.jpg)
 
 ## Dependencies
 - PyTorch 1.0.0
@@ -77,23 +74,29 @@ $ python lfw_eval.py
 ### Results
 #|image size|network|use-se|loss func|gamma|batch size|weight decay|s|m|LFW accuracy|
 |---|---|---|---|---|---|---|---|---|---|---|
-|1|112x112|ResNet-152|True|focal|2.0|128|5e-4|50|0.5|99.38%|
-|2|112x112|ResNet-101|True|focal|2.0|256|5e-4|50|0.5|99.27%|
-|3|112x112|ResNet-101|False|focal|2.0|256|5e-4|50|0.5|99.23%|
+|1|112x112|ResNet-152|True|ce|na|128|5e-4|50|0.5|99.42%|
+|2|112x112|ResNet-152|True|focal|2.0|128|5e-4|50|0.5|99.38%|
+|3|112x112|ResNet-101|True|focal|2.0|256|5e-4|50|0.5|99.27%|
+|4|112x112|ResNet-101|False|focal|2.0|256|5e-4|50|0.5|99.23%|
 
-### θj Distribution
+### theta j Distribution
 
-![image](https://github.com/foamliu/InsightFace/raw/master/images/θj_dist.png)
+![image](https://github.com/foamliu/InsightFace/raw/master/images/theta_dist.png)
 
 ### Error analysis
 ##### False Positive
-2 false positives:
+8 false positives:
+
 1|2|1|2|
 |---|---|---|---|
 |![image](https://github.com/foamliu/InsightFace/raw/master/images/0_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/0_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/1_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/1_fp_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace/raw/master/images/2_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/2_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/3_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/3_fp_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace/raw/master/images/4_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/4_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/5_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/5_fp_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace/raw/master/images/6_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/6_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/7_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/7_fp_1.jpg)|
 
 ##### False Negative
-35 false negative, these 10 are randomly chosen:
+27 false negative, these 10 are randomly chosen:
+
 1|2|1|2|
 |---|---|---|---|
 |![image](https://github.com/foamliu/InsightFace/raw/master/images/0_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/0_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/1_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/1_fn_1.jpg)|

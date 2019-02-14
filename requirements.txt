@@ -1,3 +1,5 @@
+matplotlib
+scipy
 tqdm
 opencv-python
 pillow

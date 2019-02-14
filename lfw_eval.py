@@ -6,6 +6,7 @@ import tarfile
 
 import cv2 as cv
 import numpy as np
+import scipy.stats
 import torch
 from matplotlib import pyplot as plt
 from torchvision import transforms
@@ -133,10 +134,25 @@ def visualize(threshold):
 
     bins = np.linspace(0, 180, 181)
 
-    plt.hist(zeros, bins, alpha=0.5, label='0')
-    plt.hist(ones, bins, alpha=0.5, label='1')
+    plt.hist(zeros, bins, density=True, alpha=0.5, label='0', facecolor='red')
+    plt.hist(ones, bins, density=True, alpha=0.5, label='1', facecolor='blue')
+
+    mu_0 = np.mean(zeros)
+    sigma_0 = np.std(zeros)
+    y_0 = scipy.stats.norm.pdf(bins, mu_0, sigma_0)
+    plt.plot(bins, y_0, 'r--')
+    mu_1 = np.mean(ones)
+    sigma_1 = np.std(ones)
+    y_1 = scipy.stats.norm.pdf(bins, mu_1, sigma_1)
+    plt.plot(bins, y_1, 'b--')
+    plt.xlabel('theta')
+    plt.ylabel('theta j Distribution')
+    plt.title(
+        r'Histogram : mu_0={:.4f},sigma_0={:.4f}, mu_1={:.4f},sigma_1={:.4f}'.format(mu_0, sigma_0, mu_1, sigma_1))
+
     plt.legend(loc='upper right')
-    plt.plot([threshold, threshold], [0, 100], 'k-', lw=2)
+    plt.plot([threshold, threshold], [0, 0.05], 'k-', lw=2)
+    plt.savefig('images/theta_dist.png')
     plt.show()
 
 

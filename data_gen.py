@@ -7,7 +7,7 @@ import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 
-from config import pickle_file, batch_size, num_workers
+from config import pickle_file, num_workers
 from utils import align_face
 
 # Data augmentation and normalization for training
@@ -89,6 +89,5 @@ if __name__ == "__main__":
                                                num_workers=num_workers,
                                                pin_memory=True)
 
-    print(batch_size)
     print(len(train_dataset))
     print(len(train_loader))
