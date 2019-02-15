@@ -1,14 +1,11 @@
-import pickle
-import random
-
-import cv2 as cv
+import mxnet as mx
 import numpy as np
 import torch
+from mxnet import recordio
 from torch.utils.data import Dataset
 from torchvision import transforms
 
-from config import pickle_file, num_workers
-from utils import align_face
+from config import path_imgidx, path_imgrec, num_workers, num_samples
 
 # Data augmentation and normalization for training
 # Just normalization for validation
@@ -29,58 +26,27 @@ data_transforms = {
 
 class ArcFaceDataset(Dataset):
     def __init__(self, split):
-        with open(pickle_file, 'rb') as file:
-            data = pickle.load(file)
-
-        samples = data['samples']
-
-        num_samples = len(samples)
-        num_train = num_samples
+        self.imgrec = recordio.MXIndexedRecordIO(path_imgidx, path_imgrec, 'r')
 
         if split == 'train':
-            self.samples = samples[:num_train]
             self.transformer = data_transforms['train']
 
     def __getitem__(self, i):
-        sample = self.samples[i]
-        full_path = sample['full_path']
-        landmarks = sample['landmarks']
+        header, s = recordio.unpack(self.imgrec.read_idx(i + 1))
+        img = mx.image.imdecode(s).asnumpy()
 
-        try:
-            img = align_face(full_path, landmarks)
-        except Exception:
-            print('full_path: ' + full_path)
-            raise
+        class_id = int(header.label)
 
         img = transforms.ToPILImage()(img)
         img = self.transformer(img)
 
-        class_id = sample['class_id']
         return img, class_id
 
     def __len__(self):
-        return len(self.samples)
+        return num_samples
 
     def shuffle(self):
         np.random.shuffle(self.samples)
-
-
-def show_align():
-    with open(pickle_file, 'rb') as file:
-        data = pickle.load(file)
-
-    samples = random.sample(data['samples'], 10)
-
-    for i, sample in enumerate(samples):
-        full_path = sample['full_path']
-        landmarks = sample['landmarks']
-        raw = cv.imread(full_path)
-        raw = cv.resize(raw, (224, 224))
-        img = align_face(full_path, landmarks)
-        filename = 'images/{}_raw.jpg'.format(i)
-        cv.imwrite(filename, raw)
-        filename = 'images/{}_img.jpg'.format(i)
-        cv.imwrite(filename, img)
 
 
 if __name__ == "__main__":

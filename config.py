@@ -1,3 +1,5 @@
+import os
+
 import torch
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')  # sets device for model and PyTorch tensors
@@ -6,17 +8,17 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')  # sets de
 image_w = 112
 image_h = 112
 channel = 3
-num_classes = 10575
-num_samples = 494414
 
 # Training parameters
-train_split = 0.9
 num_workers = 4  # for data-loading; right now, only 1 works with h5py
 grad_clip = 5.  # clip gradients at an absolute value of
 print_freq = 100  # print training/validation stats every __ batches
 checkpoint = None  # path to checkpoint, None if none
 
 # Data parameters
+num_classes = 85164
+num_samples = 3804847
 DATA_DIR = 'data'
-IMG_DIR = 'data/CASIA-WebFace'
-pickle_file = DATA_DIR + '/' + 'CASIA-WebFace.pkl'
+IMG_DIR = 'data/faces_ms1m_112x112'
+path_imgidx = os.path.join(IMG_DIR, 'train.idx')
+path_imgrec = os.path.join(IMG_DIR, 'train.rec')
