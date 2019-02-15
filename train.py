@@ -13,7 +13,7 @@ from data_gen import ArcFaceDataset
 from focal_loss import FocalLoss
 from lfw_eval import lfw_test
 from models import resnet18, resnet34, resnet50, resnet101, resnet152, resnet_face18, ArcMarginModel
-from utils import parse_args, save_checkpoint, AverageMeter, clip_gradient, accuracy
+from utils import parse_args, save_checkpoint, AverageMeter, clip_gradient, accuracy, get_logger
 
 
 def full_log(epoch):
@@ -70,6 +70,8 @@ def train_net(args):
         metric_fc = nn.DataParallel(metric_fc)
         optimizer = checkpoint['optimizer']
 
+    logger = get_logger()
+
     # Move to GPU, if available
     model = model.to(device)
     metric_fc = metric_fc.to(device)
@@ -104,7 +106,8 @@ def train_net(args):
                                             metric_fc=metric_fc,
                                             criterion=criterion,
                                             optimizer=optimizer,
-                                            epoch=epoch)
+                                            epoch=epoch,
+                                            logger=logger)
         # train_dataset.shuffle()
         writer.add_scalar('Train Loss', train_loss, epoch)
         writer.add_scalar('Train Top5 Accuracy', train_top5_accs, epoch)
@@ -136,7 +139,7 @@ def train_net(args):
             print('{} seconds'.format(delta.seconds))
 
 
-def train(train_loader, model, metric_fc, criterion, optimizer, epoch):
+def train(train_loader, model, metric_fc, criterion, optimizer, epoch, logger):
     model.train()  # train mode (dropout and batchnorm is used)
     metric_fc.train()
 
@@ -173,11 +176,11 @@ def train(train_loader, model, metric_fc, criterion, optimizer, epoch):
 
         # Print status
         if i % print_freq == 0:
-            print('Epoch: [{0}][{1}/{2}]\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-                  'Top5 Accuracy {top5_accs.val:.3f} ({top5_accs.avg:.3f})'.format(epoch, i, len(train_loader),
-                                                                                   loss=losses,
-                                                                                   top5_accs=top5_accs))
+            logger.info('Epoch: [{0}][{1}/{2}]\t'
+                        'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
+                        'Top5 Accuracy {top5_accs.val:.3f} ({top5_accs.avg:.3f})'.format(epoch, i, len(train_loader),
+                                                                                         loss=losses,
+                                                                                         top5_accs=top5_accs))
 
     return losses.avg, top5_accs.avg
 
