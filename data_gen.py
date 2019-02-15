@@ -1,4 +1,3 @@
-import mxnet
 import mxnet as mx
 import numpy as np
 import torch
@@ -38,8 +37,9 @@ class ArcFaceDataset(Dataset):
             img = mx.image.imdecode(s).asnumpy()
             class_id = int(header.label)
         except:
-            img = np.zeros((112, 112, 3), np.int8)
-            class_id = 0
+            header, s = recordio.unpack(self.imgrec.read_idx(1))
+            img = mx.image.imdecode(s).asnumpy()
+            class_id = int(header.label)
 
         img = transforms.ToPILImage()(img)
         img = self.transformer(img)
