@@ -1,3 +1,4 @@
+import mxnet
 import mxnet as mx
 import numpy as np
 import torch
@@ -32,7 +33,11 @@ class ArcFaceDataset(Dataset):
             self.transformer = data_transforms['train']
 
     def __getitem__(self, i):
-        header, s = recordio.unpack(self.imgrec.read_idx(i + 1))
+        try:
+            header, s = recordio.unpack(self.imgrec.read_idx(i + 1))
+        except mxnet.base.MXNetError:
+            print(i)
+            raise
         img = mx.image.imdecode(s).asnumpy()
 
         class_id = int(header.label)
