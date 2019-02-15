@@ -35,12 +35,11 @@ class ArcFaceDataset(Dataset):
     def __getitem__(self, i):
         try:
             header, s = recordio.unpack(self.imgrec.read_idx(i + 1))
-        except mxnet.base.MXNetError:
-            print(i)
-            raise
-        img = mx.image.imdecode(s).asnumpy()
-
-        class_id = int(header.label)
+            img = mx.image.imdecode(s).asnumpy()
+            class_id = int(header.label)
+        except:
+            img = np.zeros((112, 112, 3), np.int8)
+            class_id = 0
 
         img = transforms.ToPILImage()(img)
         img = self.transformer(img)
