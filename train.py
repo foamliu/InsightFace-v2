@@ -8,7 +8,7 @@ from tensorboardX import SummaryWriter
 from torch import nn
 from torch.optim.lr_scheduler import StepLR
 
-from config import device, num_workers, grad_clip, print_freq
+from config import device, grad_clip, print_freq
 from data_gen import ArcFaceDataset
 from focal_loss import FocalLoss
 from lfw_eval import lfw_test
@@ -84,9 +84,7 @@ def train_net(args):
 
     # Custom dataloaders
     train_dataset = ArcFaceDataset('train')
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
-                                               num_workers=num_workers,
-                                               pin_memory=True)
+    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
 
     scheduler = StepLR(optimizer, step_size=args.lr_step, gamma=0.1)
 
