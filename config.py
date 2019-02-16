@@ -12,7 +12,7 @@ channel = 3
 # Training parameters
 num_workers = 1  # for data-loading; right now, only 1 works with h5py
 grad_clip = 5.  # clip gradients at an absolute value of
-print_freq = 100  # print training/validation stats every __ batches
+print_freq = 100  # print training/validation stats  every __ batches
 checkpoint = None  # path to checkpoint, None if none
 
 # Data parameters
@@ -23,4 +23,4 @@ faces_ms1m_folder = 'data/faces_ms1m_112x112'
 path_imgidx = os.path.join(faces_ms1m_folder, 'train.idx')
 path_imgrec = os.path.join(faces_ms1m_folder, 'train.rec')
 IMG_DIR = 'data/images'
-pickle_file = 'data/faces_ms1m_112x112.pickle',
+pickle_file = 'data/faces_ms1m_112x112.pickle'
