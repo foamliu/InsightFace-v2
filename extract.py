@@ -1,16 +1,16 @@
-import pickle
 import os
+import pickle
+
 import cv2 as cv
 import mxnet as mx
 from mxnet import recordio
 from tqdm import tqdm
 
-from config import path_imgidx, path_imgrec
+from config import path_imgidx, path_imgrec, IMG_DIR
 from utils import ensure_folder
 
 if __name__ == "__main__":
-    folder = 'data/images'
-    ensure_folder(folder)
+    ensure_folder(IMG_DIR)
     imgrec = recordio.MXIndexedRecordIO(path_imgidx, path_imgrec, 'r')
 
     samples = []
@@ -23,13 +23,13 @@ if __name__ == "__main__":
             img = cv.cvtColor(img, cv.COLOR_RGB2BGR)
             label = int(header.label)
             filename = '{}.png'.format(i)
-            samples.append({'img': filename, label: label})
-            filename = os.path.join(folder, filename)
+            samples.append({'img': filename, 'label': label})
+            filename = os.path.join(IMG_DIR, filename)
             cv.imwrite(filename, img)
         except:
             pass
 
-    with open('data/faces_ms1m_112x112.pickle', 'wb') as file:
+    with open('wb') as file:
         pickle.dump(samples, file)
 
     print('num_samples: ' + str(len(samples)))

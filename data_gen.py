@@ -1,12 +1,12 @@
+import pickle
+
 import cv2 as cv
-import mxnet as mx
 import numpy as np
 import torch
-from mxnet import recordio
 from torch.utils.data import Dataset
 from torchvision import transforms
 
-from config import path_imgidx, path_imgrec, num_workers, num_samples
+from config import num_workers, pickle_file
 
 # Data augmentation and normalization for training
 # Just normalization for validation
@@ -27,29 +27,26 @@ data_transforms = {
 
 class ArcFaceDataset(Dataset):
     def __init__(self, split):
-        self.imgrec = recordio.MXIndexedRecordIO(path_imgidx, path_imgrec, 'r')
+        with open(pickle_file, 'rb') as file:
+            data = pickle.load(file)
+
+        self.samples = data
 
         if split == 'train':
             self.transformer = data_transforms['train']
 
     def __getitem__(self, i):
-        try:
-            header, s = recordio.unpack(self.imgrec.read_idx(i + 1))
-            img = mx.image.imdecode(s).asnumpy()
-            class_id = int(header.label)
-        except cv.error as err:
-            header, s = recordio.unpack(self.imgrec.read_idx(1))
-            img = mx.image.imdecode(s).asnumpy()
-            class_id = int(header.label)
-            print('i: {}, err: {}'.format(i, err))
+        sample = self.samples[i]
+        img = cv.imread(sample['img'])
+        label = sample['label']
 
         img = transforms.ToPILImage()(img)
         img = self.transformer(img)
 
-        return img, class_id
+        return img, label
 
     def __len__(self):
-        return num_samples
+        return len(self.samples)
 
     def shuffle(self):
         np.random.shuffle(self.samples)
