@@ -17,7 +17,7 @@ checkpoint = None  # path to checkpoint, None if none
 
 # Data parameters
 num_classes = 85164
-num_samples = 3804847
+num_samples = 3804846
 DATA_DIR = 'data'
 faces_ms1m_folder = 'data/faces_ms1m_112x112'
 path_imgidx = os.path.join(faces_ms1m_folder, 'train.idx')
