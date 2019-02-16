@@ -206,3 +206,9 @@ def get_logger():
     # add ch to logger
     logger.addHandler(ch)
     return logger
+
+
+def ensure_folder(folder):
+    import os
+    if not os.path.isdir(folder):
+        os.mkdir(folder)

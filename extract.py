@@ -1,12 +1,16 @@
 import pickle
-
+import os
+import cv2 as cv
 import mxnet as mx
 from mxnet import recordio
 from tqdm import tqdm
 
 from config import path_imgidx, path_imgrec
+from utils import ensure_folder
 
 if __name__ == "__main__":
+    folder = 'data/images'
+    ensure_folder(folder)
     imgrec = recordio.MXIndexedRecordIO(path_imgidx, path_imgrec, 'r')
 
     samples = []
@@ -16,8 +20,12 @@ if __name__ == "__main__":
         try:
             header, s = recordio.unpack(imgrec.read_idx(i + 1))
             img = mx.image.imdecode(s).asnumpy()
+            img = cv.cvtColor(img, cv.COLOR_RGB2BGR)
             label = int(header.label)
-            samples.append({'img': img, label: label})
+            filename = '{}.png'.format(i)
+            samples.append({'img': filename, label: label})
+            filename = os.path.join(folder, filename)
+            cv.imwrite(filename, img)
         except:
             pass
 
