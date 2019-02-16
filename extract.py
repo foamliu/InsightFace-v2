@@ -6,7 +6,7 @@ import mxnet as mx
 from mxnet import recordio
 from tqdm import tqdm
 
-from config import path_imgidx, path_imgrec, IMG_DIR
+from config import path_imgidx, path_imgrec, IMG_DIR, pickle_file
 from utils import ensure_folder
 
 if __name__ == "__main__":
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         except:
             pass
 
-    with open('wb') as file:
+    with open(pickle_file, 'wb') as file:
         pickle.dump(samples, file)
 
     print('num_samples: ' + str(len(samples)))
