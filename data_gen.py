@@ -1,3 +1,4 @@
+import os
 import pickle
 
 import cv2 as cv
@@ -6,6 +7,7 @@ import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 
+from config import IMG_DIR
 from config import num_workers, pickle_file
 
 # Data augmentation and normalization for training
@@ -37,7 +39,9 @@ class ArcFaceDataset(Dataset):
 
     def __getitem__(self, i):
         sample = self.samples[i]
-        img = cv.imread(sample['img'])
+        filename = sample['img']
+        filename = os.path.join(IMG_DIR, filename)
+        img = cv.imread(filename)
         label = sample['label']
 
         img = transforms.ToPILImage()(img)
