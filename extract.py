@@ -26,6 +26,8 @@ if __name__ == "__main__":
             samples.append({'img': filename, 'label': label})
             filename = os.path.join(IMG_DIR, filename)
             cv.imwrite(filename, img)
+        except KeyboardInterrupt:
+            raise
         except:
             pass
 
