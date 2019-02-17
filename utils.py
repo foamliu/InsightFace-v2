@@ -1,4 +1,5 @@
 import argparse
+import logging
 import math
 
 import cv2 as cv
@@ -187,24 +188,12 @@ def parse_args():
 
 
 def get_logger():
-    import logging
-
-    # create logger
-    logger = logging.getLogger("logging_tryout2")
-    logger.setLevel(logging.DEBUG)
-
-    # create console handler and set level to debug
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.DEBUG)
-
-    # create formatter
+    logger = logging.getLogger()
+    handler = logging.StreamHandler()
     formatter = logging.Formatter("%(asctime)s %(levelname)s \t%(message)s")
-
-    # add formatter to ch
-    ch.setFormatter(formatter)
-
-    # add ch to logger
-    logger.addHandler(ch)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
     return logger
 
 
