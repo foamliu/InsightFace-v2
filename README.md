@@ -12,7 +12,7 @@ year={2018}
 ```
 ## DataSet
 
-CASIA WebFace DataSet, 494,414 faces over 10,575 identities.
+MS-Celeb-1M DataSet, 3,804,846 faces over 85,164 identities.
 
 ## Dependencies
 - PyTorch 1.0.0
