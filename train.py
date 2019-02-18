@@ -29,7 +29,7 @@ def full_log(epoch):
 def train_net(args):
     torch.manual_seed(7)
     np.random.seed(7)
-    checkpoint = None
+    checkpoint = args.checkpoint
     start_epoch = 0
     best_acc = 0
     writer = SummaryWriter()
