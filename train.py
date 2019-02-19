@@ -92,7 +92,7 @@ def train_net(args):
 
         if args.full_log:
             lfw_acc, threshold = lfw_test(model)
-            writer.add_scalar('LFW Accuracy', lfw_acc, epoch)
+            writer.add_scalar('LFW_Accuracy', lfw_acc, epoch)
             full_log(epoch)
 
         start = datetime.now()
@@ -105,8 +105,8 @@ def train_net(args):
                                             epoch=epoch,
                                             logger=logger)
         # train_dataset.shuffle()
-        writer.add_scalar('Train Loss', train_loss, epoch)
-        writer.add_scalar('Train Top5 Accuracy', train_top5_accs, epoch)
+        writer.add_scalar('Train_Loss', train_loss, epoch)
+        writer.add_scalar('Train_Top5_Accuracy', train_top5_accs, epoch)
 
         end = datetime.now()
         delta = end - start
