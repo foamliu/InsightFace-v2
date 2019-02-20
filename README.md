@@ -1,5 +1,7 @@
 # InsightFace
 
+![apm](https://img.shields.io/apm/l/vim-mode.svg)
+
 Implementation of Additive Angular Margin Loss for Deep Face Detection.
 [paper](https://arxiv.org/pdf/1801.07698.pdf).
 ```
