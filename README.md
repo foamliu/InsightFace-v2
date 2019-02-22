@@ -77,7 +77,7 @@ $ python lfw_eval.py
 Backbones|LFW(%)|
 |---|---|
 |SE-LResNet18E-IR|99.58%|
-|SE-LResNet152E-IR|99.43%|
+|SE-LResNet101E-IR|99.52%|
 
 ### theta j Distribution
 
