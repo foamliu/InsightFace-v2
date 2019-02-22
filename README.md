@@ -2,7 +2,7 @@
 
 ![apm](https://img.shields.io/apm/l/vim-mode.svg)
 
-Implementation of Additive Angular Margin Loss for Deep Face Detection.
+PyTorch implementation of Additive Angular Margin Loss for Deep Face Recognition.
 [paper](https://arxiv.org/pdf/1801.07698.pdf).
 ```
 @article{deng2018arcface,
