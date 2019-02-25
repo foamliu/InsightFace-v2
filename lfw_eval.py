@@ -3,6 +3,7 @@ import os
 import pickle
 import random
 import tarfile
+import time
 
 import cv2 as cv
 import numpy as np
@@ -89,6 +90,7 @@ def evaluate(model):
 
     angles = []
 
+    start = time.time()
     with torch.no_grad():
         for line in lines:
             tokens = line.split()
@@ -100,17 +102,19 @@ def evaluate(model):
             imgs[0] = img0
             imgs[1] = img1
             output = model(imgs)
-            # print('output.size(): ' + str(output.size()))
+
             feature0 = output[0].cpu().numpy()
             feature1 = output[1].cpu().numpy()
             x0 = feature0 / np.linalg.norm(feature0)
             x1 = feature1 / np.linalg.norm(feature1)
             cosine = np.dot(x0, x1)
-            # print('cosine: ' + str(cosine))
             theta = math.acos(cosine)
             theta = theta * 180 / math.pi
             is_same = tokens[2]
             angles.append('{} {}\n'.format(theta, is_same))
+
+    elapsed_time = time.time() - start
+    print('elapsed time(sec) per image: {}'.format(elapsed_time / (6000 * 2)))
 
     with open('data/angles.txt', 'w') as file:
         file.writelines(angles)
