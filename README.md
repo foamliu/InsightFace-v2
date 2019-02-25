@@ -85,17 +85,10 @@ Backbones|LFW(%)|Download|
 
 ### Error analysis
 ##### False Positive
-3 false positives:
-
-1|2|1|2|
-|---|---|---|---|
-|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/0_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/0_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/1_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/1_fp_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/2_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/2_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/3_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/3_fp_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fp_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fp_1.jpg)|
+0 false positives:
 
 ##### False Negative
-22 false negative, these 10 are randomly chosen:
+15 false negative, these 10 are randomly chosen:
 
 1|2|1|2|
 |---|---|---|---|
