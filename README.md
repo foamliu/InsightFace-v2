@@ -77,7 +77,7 @@ $ python lfw_eval.py
 Backbones|LFW(%)|Download|
 |---|---|---|
 |SE-LResNet101E-IR|99.75%|[Link]()|
-|SE-LResNet18E-IR|99.58%|[Link]()|
+|SE-LResNet18E-IR|99.58%|[Link](https://github.com/foamliu/InsightFace-v2/releases/download/v1.0/BEST_checkpoint_r18.tar)|
 
 ### theta j Distribution
 
