@@ -1,6 +1,8 @@
 # InsightFace
 
-Implementation of Additive Angular Margin Loss for Deep Face Detection.
+![apm](https://img.shields.io/apm/l/vim-mode.svg)
+
+PyTorch implementation of Additive Angular Margin Loss for Deep Face Recognition.
 [paper](https://arxiv.org/pdf/1801.07698.pdf).
 ```
 @article{deng2018arcface,
@@ -74,10 +76,8 @@ $ python lfw_eval.py
 ### Results
 Backbones|LFW(%)|
 |---|---|
-|SE-LResNet152E-IR|99.43%|
-|SE-LResNet152E-IR|99.38%|
-|SE-LResNet101E-IR|99.27%|
-|LResNet101E-IR|99.23%|
+|SE-LResNet101E-IR|99.68%|
+|SE-LResNet18E-IR|99.58%|
 
 ### theta j Distribution
 
