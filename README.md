@@ -74,34 +74,34 @@ $ python lfw_eval.py
 ```
 
 ### Results
-Backbones|LFW(%)|
-|---|---|
-|SE-LResNet101E-IR|99.68%|
-|SE-LResNet18E-IR|99.58%|
+Backbones|LFW(%)|Download|
+|---|---|---|
+|SE-LResNet101E-IR|99.75%|[Link]()|
+|SE-LResNet18E-IR|99.58%|[Link]()|
 
 ### theta j Distribution
 
-![image](https://github.com/foamliu/InsightFace/raw/master/images/theta_dist.png)
+![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/theta_dist.png)
 
 ### Error analysis
 ##### False Positive
-8 false positives:
+3 false positives:
 
 1|2|1|2|
 |---|---|---|---|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/0_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/0_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/1_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/1_fp_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/2_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/2_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/3_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/3_fp_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/4_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/4_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/5_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/5_fp_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/6_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/6_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/7_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/7_fp_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/0_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/0_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/1_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/1_fp_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/2_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/2_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/3_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/3_fp_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fp_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fp_1.jpg)|
 
 ##### False Negative
-27 false negative, these 10 are randomly chosen:
+22 false negative, these 10 are randomly chosen:
 
 1|2|1|2|
 |---|---|---|---|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/0_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/0_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/1_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/1_fn_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/2_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/2_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/3_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/3_fn_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/4_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/4_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/5_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/5_fn_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/6_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/6_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/7_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/7_fn_1.jpg)|
-|![image](https://github.com/foamliu/InsightFace/raw/master/images/8_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/8_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/9_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace/raw/master/images/9_fn_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/0_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/0_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/1_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/1_fn_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/2_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/2_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/3_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/3_fn_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fn_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_1.jpg)|
  
