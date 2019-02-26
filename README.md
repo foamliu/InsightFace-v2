@@ -74,10 +74,10 @@ $ python lfw_eval.py
 ```
 
 ### Results
-Backbones|LFW(%)|Inference speed(*)| Download|
-|---|---|---|---|
-|SE-LResNet101E-IR|99.75%|46.52 ms|[Link]()|
-|SE-LResNet18E-IR|99.58%|17.96 ms|[Link](https://github.com/foamliu/InsightFace-v2/releases/download/v1.0/BEST_checkpoint_r18.tar)|
+Backbones|LFW(%)|Inference speed(*)| 
+|---|---|---|
+|SE-LResNet101E-IR|99.75%|46.52 ms|
+|SE-LResNet18E-IR|99.58%|17.96 ms|
 
 Note(*): with 1 Nvidia Tesla P100.
 
