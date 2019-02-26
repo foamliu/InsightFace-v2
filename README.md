@@ -86,6 +86,8 @@ Note(*): with 1 Nvidia Tesla P100.
 ![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/theta_dist.png)
 
 ### Error analysis
+See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#errata)
+
 ##### False Positive
 0 false positives:
 
