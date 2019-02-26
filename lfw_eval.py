@@ -1,7 +1,6 @@
 import math
 import os
 import pickle
-import random
 import tarfile
 import time
 
@@ -214,17 +213,15 @@ def error_analysis(threshold):
     print('len(fp): ' + str(len(fp)))
     print('len(fn): ' + str(len(fn)))
 
-    num_fp = min(10, len(fp))
-    fp_list = random.sample(fp, num_fp)
-    num_fn = min(10, len(fn))
-    fn_list = random.sample(fn, num_fn)
+    num_fp = len(fp)
+    num_fn = len(fn)
 
     filename = 'data/lfw_test_pair.txt'
     with open(filename, 'r') as file:
         pair_lines = file.readlines()
 
     for i in range(num_fp):
-        fp_id = fp_list[i]
+        fp_id = fp[i]
         fp_line = pair_lines[fp_id]
         tokens = fp_line.split()
         file0 = tokens[0]
@@ -233,7 +230,7 @@ def error_analysis(threshold):
         copy_file(file1, '{}_fp_1.jpg'.format(i))
 
     for i in range(num_fn):
-        fn_id = fn_list[i]
+        fn_id = fn[i]
         fn_line = pair_lines[fn_id]
         tokens = fn_line.split()
         file0 = tokens[0]
