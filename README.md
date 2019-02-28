@@ -77,6 +77,7 @@ $ python lfw_eval.py
 Backbones|LFW(%)|Inference speed(*)| 
 |---|---|---|
 |SE-LResNet101E-IR|99.75%|46.52 ms|
+|SE-LResNet50E-IR|99.68%|TBD|
 |SE-LResNet18E-IR|99.58%|17.96 ms|
 
 Note(*): with 1 Nvidia Tesla P100.
