@@ -244,6 +244,7 @@ def error_analysis(threshold):
 
 
 def save_aligned(old_fn, new_fn):
+    old_fn = os.path.join('data/lfw_funneled', old_fn)
     is_valid, bounding_boxes, landmarks = get_face_all_attributes(old_fn)
     img = align_face(old_fn, landmarks)
     new_fn = os.path.join('images', new_fn)
