@@ -30,6 +30,7 @@ Function|Dataset|Details|
 ### Data wrangling
 Extract images, scan them, to get bounding boxes and landmarks:
 ```bash
+$ python extract.py
 $ python pre_process.py
 ```
 
