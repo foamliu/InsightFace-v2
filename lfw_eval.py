@@ -226,8 +226,10 @@ def error_analysis(threshold):
         tokens = fp_line.split()
         file0 = tokens[0]
         copy_file(file0, '{}_fp_0.jpg'.format(i))
+        save_aligned(file0, '{}_fp_0_aligned.jpg'.format(i))
         file1 = tokens[1]
         copy_file(file1, '{}_fp_1.jpg'.format(i))
+        save_aligned(file0, '{}_fp_1_aligned.jpg'.format(i))
 
     for i in range(num_fn):
         fn_id = fn[i]
@@ -235,8 +237,17 @@ def error_analysis(threshold):
         tokens = fn_line.split()
         file0 = tokens[0]
         copy_file(file0, '{}_fn_0.jpg'.format(i))
+        save_aligned(file0, '{}_fn_0_aligned.jpg'.format(i))
         file1 = tokens[1]
         copy_file(file1, '{}_fn_1.jpg'.format(i))
+        save_aligned(file0, '{}_fn_1_aligned.jpg'.format(i))
+
+
+def save_aligned(old_fn, new_fn):
+    is_valid, bounding_boxes, landmarks = get_face_all_attributes(old_fn)
+    img = align_face(old_fn, landmarks)
+    new_fn = os.path.join('images', new_fn)
+    cv.imwrite(new_fn, img)
 
 
 def copy_file(old, new):
