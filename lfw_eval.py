@@ -229,7 +229,7 @@ def error_analysis(threshold):
         save_aligned(file0, '{}_fp_0_aligned.jpg'.format(i))
         file1 = tokens[1]
         copy_file(file1, '{}_fp_1.jpg'.format(i))
-        save_aligned(file0, '{}_fp_1_aligned.jpg'.format(i))
+        save_aligned(file1, '{}_fp_1_aligned.jpg'.format(i))
 
     for i in range(num_fn):
         fn_id = fn[i]
@@ -240,7 +240,7 @@ def error_analysis(threshold):
         save_aligned(file0, '{}_fn_0_aligned.jpg'.format(i))
         file1 = tokens[1]
         copy_file(file1, '{}_fn_1.jpg'.format(i))
-        save_aligned(file0, '{}_fn_1_aligned.jpg'.format(i))
+        save_aligned(file1, '{}_fn_1_aligned.jpg'.format(i))
 
 
 def save_aligned(old_fn, new_fn):
