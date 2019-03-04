@@ -87,7 +87,7 @@ Backbones|LFW(%)|Inference speed(*)|
 |---|---|---|
 |SE-LResNet101E-IR|99.83%|46.63 ms|
 |SE-LResNet50E-IR|99.68%|34.25 ms|
-|SE-LResNet18E-IR|99.58%|17.96 ms|
+|SE-LResNet18E-IR|99.65%|17.53 ms|
 
 Note(*): with 1 Nvidia Tesla P100.
 
