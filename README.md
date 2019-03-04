@@ -18,7 +18,7 @@ Function|Dataset|Details|
 |---|---|---|
 |Train|MS-Celeb-1M|3,804,846 faces over 85,164 identities.|
 |Test-1|LFW|13233 faces, 5749 identities.|
-|Test-2|MegaFace|One Million photos, 690K identities.|
+|Test-2|MegaFace|1,027,060 faces, 690,572 identities.|
 
 
 ## Dependencies
@@ -60,13 +60,16 @@ $ tensorboard --logdir=runs
 
 ## Performance evaluation
 
-### DataSet
+### LFW
+
+#### Introduction
 Use Labeled Faces in the Wild (LFW) dataset for performance evaluation:
 
 - 13233 faces
 - 5749 identities
 - 1680 identities with >=2 photo
 
+#### Download
 Download LFW database put it under data folder:
 ```bash
 $ wget http://vis-www.cs.umass.edu/lfw/lfw-funneled.tgz
@@ -74,8 +77,7 @@ $ wget http://vis-www.cs.umass.edu/lfw/pairs.txt
 $ wget http://vis-www.cs.umass.edu/lfw/people.txt
 ```
 
-### Get it started
-
+#### Start evaluation
 ```bash
 $ python lfw_eval.py
 ```
@@ -116,3 +118,4 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_1.jpg)|
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/10_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/10_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/11_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/11_fn_1.jpg)|
  
+ ### MegaFace
