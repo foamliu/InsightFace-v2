@@ -252,11 +252,13 @@ def save_aligned(old_fn, new_fn):
 
 
 def copy_file(old, new):
-    filename = os.path.join('data/lfw_funneled', old)
-    img = cv.imread(filename)
+    old_fn = os.path.join('data/lfw_funneled', old)
+    img = cv.imread(old_fn)
+    _, bounding_boxes, landmarks = get_face_all_attributes(old_fn)
+    draw_bboxes(img, bounding_boxes, landmarks)
     cv.resize(img, (224, 224))
-    filename = os.path.join('images', new)
-    cv.imwrite(filename, img)
+    new_fn = os.path.join('images', new)
+    cv.imwrite(new_fn, img)
 
 
 def get_threshold():
