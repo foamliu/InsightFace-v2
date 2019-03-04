@@ -12,13 +12,17 @@ journal={arXiv:1801.07698},
 year={2018}
 }
 ```
-## DataSet
+## Dataset
 
-Function|Dataset|Details|
-|---|---|---|
-|Train|MS-Celeb-1M|3,804,846 faces over 85,164 identities.|
-|Test-1|LFW|13233 faces, 5749 identities.|
-|Test-2|MegaFace|1,027,060 faces, 690,572 identities.|
+Function|Dataset|
+|---|---|
+|Train|MS-Celeb-1M|
+|Test-1|LFW|
+|Test-2|MegaFace|
+
+### Introduction
+
+MS-Celeb-1M dataset for training, 3,804,846 faces over 85,164 identities.
 
 
 ## Dependencies
@@ -124,5 +128,7 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
  ### MegaFace
  
  #### Introduction
+ 
+ MegaFace dataset includes 1,027,060 faces, 690,572 identities.
  
  ![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_stats.png)
