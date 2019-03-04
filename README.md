@@ -16,8 +16,9 @@ year={2018}
 
 Function|Dataset|
 |---|---|
-Train|MS-Celeb-1M DataSet, 3,804,846 faces over 85,164 identities.|
-|
+|Train|MS-Celeb-1M DataSet, 3,804,846 faces over 85,164 identities.|
+|Test1|Labeled Faces in the Wild (LFW) dataset, 13233 faces, 5749 identities.|
+
 
 ## Dependencies
 - Python 3.6.7
