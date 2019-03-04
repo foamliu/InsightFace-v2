@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 from config import device
 from data_gen import data_transforms
-from utils import align_face, get_face_all_attributes, draw_bboxes
+from utils import align_face, get_central_face_attributes, get_all_face_attributes, draw_bboxes
 
 angles_file = 'data/angles.txt'
 lfw_pickle = 'data/lfw_funneled.pkl'
@@ -46,7 +46,7 @@ def process():
         filename = item['filename']
         class_id = item['class_id']
         sub = item['subject']
-        is_valid, bounding_boxes, landmarks = get_face_all_attributes(filename)
+        is_valid, bounding_boxes, landmarks = get_central_face_attributes(filename)
 
         if is_valid:
             samples.append(
@@ -245,7 +245,7 @@ def error_analysis(threshold):
 
 def save_aligned(old_fn, new_fn):
     old_fn = os.path.join('data/lfw_funneled', old_fn)
-    is_valid, bounding_boxes, landmarks = get_face_all_attributes(old_fn)
+    is_valid, bounding_boxes, landmarks = get_central_face_attributes(old_fn)
     img = align_face(old_fn, landmarks)
     new_fn = os.path.join('images', new_fn)
     cv.imwrite(new_fn, img)
@@ -254,7 +254,7 @@ def save_aligned(old_fn, new_fn):
 def copy_file(old, new):
     old_fn = os.path.join('data/lfw_funneled', old)
     img = cv.imread(old_fn)
-    _, bounding_boxes, landmarks = get_face_all_attributes(old_fn)
+    bounding_boxes, landmarks = get_all_face_attributes(old_fn)
     draw_bboxes(img, bounding_boxes, landmarks)
     cv.resize(img, (224, 224))
     new_fn = os.path.join('images', new)

@@ -134,7 +134,7 @@ def select_central_face(im_size, bounding_boxes):
     return nearest_index
 
 
-def get_face_all_attributes(full_path):
+def get_central_face_attributes(full_path):
     try:
         img = Image.open(full_path).convert('RGB')
         bounding_boxes, landmarks = detect_faces(img)
@@ -148,6 +148,12 @@ def get_face_all_attributes(full_path):
     except:
         pass
     return False, None, None
+
+
+def get_all_face_attributes(full_path):
+    img = Image.open(full_path).convert('RGB')
+    bounding_boxes, landmarks = detect_faces(img)
+    return True, bounding_boxes, landmarks
 
 
 def draw_bboxes(img, bounding_boxes, facial_landmarks=[]):
