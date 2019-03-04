@@ -14,10 +14,11 @@ year={2018}
 ```
 ## DataSet
 
-Function|Dataset|
-|---|---|
-|Train|MS-Celeb-1M DataSet, 3,804,846 faces over 85,164 identities.|
-|Test1|Labeled Faces in the Wild (LFW) dataset, 13233 faces, 5749 identities.|
+Function|Dataset|Details|
+|---|---|---|
+|Train|MS-Celeb-1M|3,804,846 faces over 85,164 identities.|
+|Test-1|LFW|13233 faces, 5749 identities.|
+|Test-2|MegaFace|One Million photos, 690K identities.|
 
 
 ## Dependencies
