@@ -14,9 +14,13 @@ year={2018}
 ```
 ## DataSet
 
-MS-Celeb-1M DataSet, 3,804,846 faces over 85,164 identities.
+Function|Dataset|
+|---|---|
+Train|MS-Celeb-1M DataSet, 3,804,846 faces over 85,164 identities.|
+|
 
 ## Dependencies
+- Python 3.6.7
 - PyTorch 1.0.0
 
 ## Usage
