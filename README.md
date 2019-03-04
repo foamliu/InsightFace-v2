@@ -76,7 +76,7 @@ $ python lfw_eval.py
 ### Results
 Backbones|LFW(%)|Inference speed(*)| 
 |---|---|---|
-|SE-LResNet101E-IR|99.75%|46.52 ms|
+|SE-LResNet101E-IR|99.77%|46.17 ms|
 |SE-LResNet50E-IR|99.68%|34.25 ms|
 |SE-LResNet18E-IR|99.58%|17.96 ms|
 
@@ -90,10 +90,14 @@ Note(*): with 1 Nvidia Tesla P100.
 See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#errata)
 
 ##### False Positive
-0 false positives:
+2 false positives:
+1|2|1|2|
+|---|---|---|---|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/0_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/0_fp_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/1_fp_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/1_fp_1.jpg)|
+
 
 ##### False Negative
-15 false negative, these 10 are randomly chosen:
+12 false negative, these 10 are randomly chosen:
 
 1|2|1|2|
 |---|---|---|---|
@@ -102,4 +106,5 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fn_1.jpg)|
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_1.jpg)|
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/10_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/10_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/11_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/11_fn_1.jpg)|
  
