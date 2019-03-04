@@ -123,7 +123,7 @@ def select_central_face(im_size, bounding_boxes):
     nearest_distance = 100000
     for i, b in enumerate(bounding_boxes):
         x_box_center = (b[0] + b[2]) / 2
-        y_box_center = (b[0] + b[2]) / 2
+        y_box_center = (b[1] + b[3]) / 2
         x_img = width / 2
         y_img = height / 2
         distance = math.sqrt((x_box_center - x_img) ** 2 + (y_box_center - y_img) ** 2)
