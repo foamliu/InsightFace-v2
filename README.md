@@ -82,7 +82,7 @@ $ wget http://vis-www.cs.umass.edu/lfw/people.txt
 $ python lfw_eval.py
 ```
 
-### Results
+#### Results
 Backbones|LFW(%)|Inference speed(*)| 
 |---|---|---|
 |SE-LResNet101E-IR|99.77%|46.17 ms|
@@ -91,11 +91,11 @@ Backbones|LFW(%)|Inference speed(*)|
 
 Note(*): with 1 Nvidia Tesla P100.
 
-### theta j Distribution
+#### theta j Distribution
 
 ![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/theta_dist.png)
 
-### Error analysis
+#### Error analysis
 See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#errata)
 
 ##### False Positive
