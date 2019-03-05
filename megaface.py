@@ -159,11 +159,5 @@ if __name__ == '__main__':
         gen_feature('megaface/facescrub_images')
         gen_feature('megaface/MegaFace/FlickrFinal2')
         remove_noise()
-
-    # match_result()
-    #
-    # pngtojpg('/newdisk/facescrub_images')
-    # crop('/root/lin/data/FaceScrub', 'FaceScrub', 'FaceScrub_aligned')
-    # gen_feature('/root/lin/data/FaceScrub_aligned')
-    #
-    #
+    elif args.action == 'pngtojpg':
+        pngtojpg('/newdisk/facescrub_images')
