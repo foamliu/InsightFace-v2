@@ -6,8 +6,6 @@ from mtcnn.box_utils import nms, calibrate_box, get_image_boxes, convert_to_squa
 from mtcnn.first_stage import run_first_stage
 from mtcnn.models import PNet, RNet, ONet
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
 
 def detect_faces(image, min_face_size=20.0,
                  thresholds=[0.6, 0.7, 0.8],
@@ -25,9 +23,9 @@ def detect_faces(image, min_face_size=20.0,
 
     with torch.no_grad():
         # LOAD MODELS
-        pnet = PNet().to(device)
-        rnet = RNet().to(device)
-        onet = ONet().to(device)
+        pnet = PNet()
+        rnet = RNet()
+        onet = ONet()
         onet.eval()
 
         # BUILD AN IMAGE PYRAMID
@@ -79,7 +77,7 @@ def detect_faces(image, min_face_size=20.0,
         # STAGE 2
 
         img_boxes = get_image_boxes(bounding_boxes, image, size=24)
-        img_boxes = Variable(torch.FloatTensor(img_boxes).to(device))
+        img_boxes = Variable(torch.FloatTensor(img_boxes))
         output = rnet(img_boxes)
         offsets = output[0].data.cpu().numpy()  # shape [n_boxes, 4]
         probs = output[1].data.cpu().numpy()  # shape [n_boxes, 2]
@@ -100,7 +98,7 @@ def detect_faces(image, min_face_size=20.0,
         img_boxes = get_image_boxes(bounding_boxes, image, size=48)
         if len(img_boxes) == 0:
             return [], []
-        img_boxes = Variable(torch.FloatTensor(img_boxes).to(device))
+        img_boxes = Variable(torch.FloatTensor(img_boxes))
         output = onet(img_boxes)
         landmarks = output[0].data.cpu().numpy()  # shape [n_boxes, 10]
         offsets = output[1].data.cpu().numpy()  # shape [n_boxes, 4]

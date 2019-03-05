@@ -2,10 +2,12 @@ import argparse
 import json
 import os
 import struct
+from multiprocessing import Pool
 
 import cv2 as cv
 import numpy as np
 import torch
+import tqdm
 from torchvision import transforms
 from tqdm import tqdm
 
@@ -14,31 +16,38 @@ from data_gen import data_transforms
 from utils import align_face, get_central_face_attributes
 
 
-def walkdir(folder, ext):
+def walkdir(folder, ext, orgkey, newkey):
     """Walk through each files in a directory"""
     for dirpath, dirs, files in os.walk(folder):
         for filename in [f for f in files if f.lower().endswith(ext)]:
-            yield os.path.abspath(os.path.join(dirpath, filename))
+            yield (os.path.abspath(os.path.join(dirpath, filename)), orgkey, newkey)
+
+
+def crop_one_image(item):
+    filepath, orgkey, newkey = item
+    new_fn = filepath.replace(orgkey, newkey)
+    tardir = os.path.dirname(new_fn)
+    if not os.path.isdir(tardir):
+        os.makedirs(tardir)
+
+    if not os.path.exists(new_fn):
+        is_valid, bounding_boxes, landmarks = get_central_face_attributes(filepath)
+        if is_valid:
+            img = align_face(filepath, landmarks)
+            cv.imwrite(new_fn, img)
 
 
 def crop(path, orgkey, newkey):
     print('cropping {}...'.format(path))
     # Preprocess the total files count
     filecounter = 0
-    for filepath in walkdir(path, '.jpg'):
+    for filepath in walkdir(path, '.jpg', orgkey, newkey):
         filecounter += 1
 
-    for filepath in tqdm(walkdir(path, '.jpg'), total=filecounter, unit="files"):
-        new_fn = filepath.replace(orgkey, newkey)
-        tardir = os.path.dirname(new_fn)
-        if not os.path.isdir(tardir):
-            os.makedirs(tardir)
-
-        if not os.path.exists(new_fn):
-            is_valid, bounding_boxes, landmarks = get_central_face_attributes(filepath)
-            if is_valid:
-                img = align_face(filepath, landmarks)
-                cv.imwrite(new_fn, img)
+    with Pool(12) as p:
+        r = list(
+            tqdm.tqdm(p.imap(crop_one_image, walkdir(path, '.jpg', orgkey, newkey)), total=filecounter, unit="files"))
+    print('{} images were cropped successfully.'.format(len(r)))
 
 
 def gen_feature(path):
