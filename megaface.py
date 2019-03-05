@@ -40,6 +40,7 @@ def crop_one_image(item):
 
 def crop(path, orgkey, newkey):
     print('cropping {}...'.format(path))
+
     # Preprocess the total files count
     filecounter = 0
     for filepath in walkdir(path, '.jpg', orgkey, newkey):
