@@ -1,20 +1,16 @@
 import json
-import struct
-import math
 import os
-import pickle
-import random
+import struct
 
 import cv2 as cv
 import numpy as np
 import torch
-from matplotlib import pyplot as plt
 from torchvision import transforms
 from tqdm import tqdm
 
 from config import device
 from data_gen import data_transforms
-from utils import align_face, get_central_face_attributes, draw_bboxes
+from utils import align_face, get_central_face_attributes
 
 
 def crop(path, orgkey, newkey):
@@ -36,12 +32,13 @@ def crop(path, orgkey, newkey):
 
 
 def gen_feature(path):
+    print('gen features {}...'.format(path))
     checkpoint = torch.load('../BEST_checkpoint.tar')
     model = checkpoint['model'].to(device)
     model.eval()
     transformer = data_transforms['val']
     with torch.no_grad():
-        for root, dirs, files in os.walk(path):
+        for root, dirs, files in tqdm(os.walk(path)):
             for f in files:
                 if f.lower().endswith('.jpg'):
                     filename = os.path.join(root, f)
