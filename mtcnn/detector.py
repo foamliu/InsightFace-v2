@@ -6,8 +6,7 @@ from mtcnn.box_utils import nms, calibrate_box, get_image_boxes, convert_to_squa
 from mtcnn.first_stage import run_first_stage
 from mtcnn.models import PNet, RNet, ONet
 
-# device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-device = torch.device('cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 def detect_faces(image, min_face_size=20.0,
