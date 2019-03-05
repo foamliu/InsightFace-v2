@@ -122,7 +122,7 @@ def pngtojpg(path):
 
 if __name__ == '__main__':
     # match_result()
-    crop('/megaface/MegaFace/FlickrFinal2', 'MegaFace', 'MegaFace_aligned')
+    crop('megaface/MegaFace/FlickrFinal2', 'MegaFace', 'MegaFace_aligned')
     # crop('/root/lin/data/FaceScrub', 'FaceScrub', 'FaceScrub_aligned')
     # pngtojpg('/newdisk/facescrub_images')
     # crop('/newdisk/facescrub_images', 'facescrub', 'facescrub_aligned')
