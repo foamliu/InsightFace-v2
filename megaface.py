@@ -1,9 +1,7 @@
 import argparse
 import json
-import multiprocessing as mp
 import os
 import struct
-from multiprocessing import Pool
 
 import cv2 as cv
 import numpy as np
@@ -17,28 +15,24 @@ from data_gen import data_transforms
 from utils import align_face, get_central_face_attributes
 
 
-def walkdir(folder, ext, orgkey, newkey):
+def walkdir(folder, ext):
     print('Walk through each files in a directory')
     for dirpath, dirs, files in os.walk(folder):
         for filename in [f for f in files if f.lower().endswith(ext)]:
             yield (os.path.abspath(os.path.join(dirpath, filename)), orgkey, newkey)
 
 
-def crop_one_image(item):
-    filepath, orgkey, newkey = item
+def crop_one_image(filepath, orgkey, newkey):
     new_fn = filepath.replace(orgkey, newkey)
     tardir = os.path.dirname(new_fn)
     if not os.path.isdir(tardir):
         os.makedirs(tardir)
 
     if not os.path.exists(new_fn):
-        try:
-            is_valid, bounding_boxes, landmarks = get_central_face_attributes(filepath)
-            if is_valid:
-                img = align_face(filepath, landmarks)
-                cv.imwrite(new_fn, img)
-        except Exception as ex:
-            print(ex)
+        is_valid, bounding_boxes, landmarks = get_central_face_attributes(filepath)
+        if is_valid:
+            img = align_face(filepath, landmarks)
+            cv.imwrite(new_fn, img)
 
 
 def crop(path, orgkey, newkey):
@@ -46,12 +40,11 @@ def crop(path, orgkey, newkey):
 
     # Preprocess the total files count
     filecounter = 0
-    for filepath in walkdir(path, '.jpg', orgkey, newkey):
+    for filepath in walkdir(path, '.jpg'):
         filecounter += 1
 
-    cpu_count = mp.cpu_count()
-    with Pool(cpu_count) as p:
-        r = list(tqdm(p.imap(crop_one_image, walkdir(path, '.jpg', orgkey, newkey)), total=filecounter, unit="files"))
+    for filepath in walkdir(path, '.jpg'):
+        crop_one_image(filepath, orgkey, newkey)
 
     print('{} images were cropped successfully.'.format(len(r)))
 
@@ -69,7 +62,8 @@ def gen_feature(path):
     transformer = data_transforms['val']
 
     with torch.no_grad():
-        for filepath in tqdm(walkdir(path, '.jpg'), total=filecounter, unit="files"):
+        for item in tqdm(walkdir(path, '.jpg'), total=filecounter, unit="files"):
+            filepath, _, _ = item
             tarfile = filepath + '_0.bin'
             if not os.path.exists(tarfile):
                 tmp = torch.zeros([1, 3, 112, 112], dtype=torch.float)
