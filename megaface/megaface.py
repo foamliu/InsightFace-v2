@@ -8,9 +8,9 @@ import torch
 from torchvision import transforms
 from tqdm import tqdm
 
-from ..config import device
-from ..data_gen import data_transforms
-from ..utils import align_face, get_central_face_attributes
+from config import device
+from data_gen import data_transforms
+from utils import align_face, get_central_face_attributes
 
 
 def crop(path, orgkey, newkey):
