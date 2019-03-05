@@ -8,9 +8,9 @@ import torch
 from torchvision import transforms
 from tqdm import tqdm
 
-from ..config import device
-from ..data_gen import data_transforms
-from ..utils import align_face, get_central_face_attributes
+from config import device
+from data_gen import data_transforms
+from utils import align_face, get_central_face_attributes
 
 
 def crop(path, orgkey, newkey):
@@ -33,7 +33,7 @@ def crop(path, orgkey, newkey):
 
 def gen_feature(path):
     print('gen features {}...'.format(path))
-    checkpoint = torch.load('../BEST_checkpoint.tar')
+    checkpoint = torch.load('BEST_checkpoint.tar')
     model = checkpoint['model'].to(device)
     model.eval()
     transformer = data_transforms['val']
@@ -72,16 +72,16 @@ def write_feature(filename, m):
 
 
 def remove_noise():
-    for line in open('megaface_noises.txt', 'r'):
-        filename = 'MegaFace/FlickrFinal2/' + line.strip() + '_0.bin'
+    for line in open('megaface/megaface_noises.txt', 'r'):
+        filename = 'megaface/MegaFace/FlickrFinal2/' + line.strip() + '_0.bin'
         if os.path.exists(filename):
             print(filename)
             os.remove(filename)
 
     noise = set()
-    for line in open('facescrub_noises.txt', 'r'):
+    for line in open('megaface/facescrub_noises.txt', 'r'):
         noise.add((line.strip().replace('png', 'jpg') + '0.bin').replace('_', '').replace(' ', ''))
-    for root, dirs, files in os.walk('facescrub_images'):
+    for root, dirs, files in os.walk('megaface/facescrub_images'):
         for f in files:
             if f.replace('_', '').replace(' ', '') in noise:
                 filename = os.path.join(root, f)
@@ -126,7 +126,7 @@ if __name__ == '__main__':
     # crop('/root/lin/data/FaceScrub', 'FaceScrub', 'FaceScrub_aligned')
     # pngtojpg('/newdisk/facescrub_images')
     # crop('/newdisk/facescrub_images', 'facescrub', 'facescrub_aligned')
-    gen_feature('facescrub_images')
+    gen_feature('megaface/facescrub_images')
     # gen_feature('/root/lin/data/FaceScrub_aligned')
-    gen_feature('MegaFace/FlickrFinal2')
+    gen_feature('megaface/MegaFace/FlickrFinal2')
     remove_noise()
