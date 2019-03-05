@@ -43,7 +43,7 @@ def crop(path, oldkey, newkey):
     for filepath in walkdir(path, '.jpg'):
         filecounter += 1
 
-    for filepath in walkdir(path, '.jpg'):
+    for filepath in tqdm(walkdir(path, '.jpg')):
         crop_one_image(filepath, oldkey, newkey)
 
     print('{} images were cropped successfully.'.format(filecounter))
