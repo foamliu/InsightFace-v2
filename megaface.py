@@ -36,7 +36,6 @@ def crop(path, orgkey, newkey):
 
         if not os.path.exists(new_fn):
             is_valid, bounding_boxes, landmarks = get_central_face_attributes(filepath)
-            print(is_valid)
             if is_valid:
                 img = align_face(filepath, landmarks)
                 cv.imwrite(new_fn, img)
