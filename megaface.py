@@ -16,7 +16,7 @@ from utils import align_face, get_central_face_attributes
 
 
 def walkdir(folder, ext):
-    print('Walk through each files in a directory')
+    # Walk through each files in a directory
     for dirpath, dirs, files in os.walk(folder):
         for filename in [f for f in files if f.lower().endswith(ext)]:
             yield os.path.abspath(os.path.join(dirpath, filename))
