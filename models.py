@@ -8,7 +8,6 @@ from torch.nn import Parameter
 from torchsummary import summary
 
 from config import device, num_classes
-from utils import parse_args
 
 __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
            'resnet152']
@@ -261,6 +260,70 @@ def resnet_face18(use_se=True, **kwargs):
     return model
 
 
+class MobileNet(nn.Module):
+    def __init__(self, alpha):
+        self.alpha = alpha
+        super(MobileNet, self).__init__()
+
+        def conv_bn(inp, oup, stride):
+            return nn.Sequential(
+                nn.Conv2d(inp, oup, 3, stride, 1, bias=False),
+                nn.BatchNorm2d(oup),
+                nn.ReLU(inplace=True)
+            )
+
+        def conv_dw(inp, oup, stride):
+            return nn.Sequential(
+                nn.Conv2d(inp, inp, 3, stride, 1, groups=inp, bias=False),
+                nn.BatchNorm2d(inp),
+                nn.ReLU(inplace=True),
+
+                nn.Conv2d(inp, oup, 1, 1, 0, bias=False),
+                nn.BatchNorm2d(oup),
+                nn.ReLU(inplace=True),
+            )
+
+        self.model = nn.Sequential(
+            conv_bn(3, int(32 * self.alpha), 2),
+            conv_dw(int(32 * self.alpha), int(64 * self.alpha), 1),
+            conv_dw(int(64 * self.alpha), int(128 * self.alpha), 2),
+            conv_dw(int(128 * self.alpha), int(128 * self.alpha), 1),
+            conv_dw(int(128 * self.alpha), int(256 * self.alpha), 2),
+            conv_dw(int(256 * self.alpha), int(256 * self.alpha), 1),
+            conv_dw(int(256 * self.alpha), int(512 * self.alpha), 2),
+            conv_dw(int(512 * self.alpha), int(512 * self.alpha), 1),
+            conv_dw(int(512 * self.alpha), int(512 * self.alpha), 1),
+            conv_dw(int(512 * self.alpha), int(512 * self.alpha), 1),
+            conv_dw(int(512 * self.alpha), int(512 * self.alpha), 1),
+            conv_dw(int(512 * self.alpha), int(512 * self.alpha), 1),
+            conv_dw(int(512 * self.alpha), int(1024 * self.alpha), 2),
+            conv_dw(int(1024 * self.alpha), int(1024 * self.alpha), 1),
+        )
+        self.bn2 = nn.BatchNorm2d(1024)
+        self.dropout = nn.Dropout()
+        self.fc = nn.Linear(1024 * 4 * 4, 512)
+        self.bn3 = nn.BatchNorm1d(512)
+
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.xavier_normal_(m.weight)
+            elif isinstance(m, nn.BatchNorm2d) or isinstance(m, nn.BatchNorm1d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.Linear):
+                nn.init.xavier_normal_(m.weight)
+                nn.init.constant_(m.bias, 0)
+
+    def forward(self, x):
+        x = self.model(x)
+        x = self.bn2(x)
+        x = self.dropout(x)
+        x = x.view(x.size(0), -1)
+        x = self.fc(x)
+        x = self.bn3(x)
+        return x
+
+
 class ArcMarginModel(nn.Module):
     def __init__(self, args):
         super(ArcMarginModel, self).__init__()
@@ -295,6 +358,7 @@ class ArcMarginModel(nn.Module):
 
 
 if __name__ == "__main__":
-    args = parse_args()
-    model = resnet152(args).to(device)
+    # args = parse_args()
+    # model = resnet152(args).to(device)
+    model = MobileNet(1.0).to(device)
     summary(model, (3, 112, 112))

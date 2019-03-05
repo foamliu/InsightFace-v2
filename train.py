@@ -12,7 +12,7 @@ from config import device, grad_clip, print_freq
 from data_gen import ArcFaceDataset
 from focal_loss import FocalLoss
 from lfw_eval import lfw_test
-from models import resnet18, resnet34, resnet50, resnet101, resnet152, resnet_face18, ArcMarginModel
+from models import resnet18, resnet34, resnet50, resnet101, resnet152, MobileNet, resnet_face18, ArcMarginModel
 from utils import parse_args, save_checkpoint, AverageMeter, clip_gradient, accuracy, get_logger
 
 
@@ -47,6 +47,8 @@ def train_net(args):
             model = resnet101(args)
         elif args.network == 'r152':
             model = resnet152(args)
+        elif args.network == 'mobile':
+            model = MobileNet(1.0)
         else:
             model = resnet_face18(args.use_se)
         model = nn.DataParallel(model)
