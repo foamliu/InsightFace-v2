@@ -135,3 +135,8 @@ MegaFace dataset includes 1,027,060 faces, 690,572 identities. [Link](http://meg
  
 Challenge 1: test your method with 1 million distractors, and we used the noises list proposed by InsightFace, at https://github.com/deepinsight/insightface.
  
+#### Generate features for FaceScrub & MegaFace:
+
+```bash
+$ python megaface.py
+```
