@@ -138,5 +138,6 @@ Challenge 1: test your method with 1 million distractors, and we used the noises
 #### Generate features for FaceScrub & MegaFace:
 
 ```bash
-$ python megaface.py
+$ python3 megaface.py --action crop_megaface
+$ python3 megaface.py --action gen_features
 ```
