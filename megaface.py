@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 import struct
@@ -13,22 +14,32 @@ from data_gen import data_transforms
 from utils import align_face, get_central_face_attributes
 
 
+def walkdir(folder, ext):
+    """Walk through each files in a directory"""
+    for dirpath, dirs, files in os.walk(folder):
+        for filename in [f for f in files if f.lower().endswith(ext)]:
+            yield os.path.abspath(os.path.join(dirpath, filename))
+
+
 def crop(path, orgkey, newkey):
-    for root, dirs, files in os.walk(path):
-        for f in files:
-            if f.lower().endswith('.jpg'):
-                filename = os.path.join(root, f)
-                print(filename)
-                tardir = root.replace(orgkey, newkey)
-                if not os.path.isdir(tardir):
-                    os.makedirs(tardir)
-                tarfile = os.path.join(tardir, f)
-                if not os.path.exists(tarfile):
-                    is_valid, bounding_boxes, landmarks = get_central_face_attributes(filename)
-                    print(is_valid)
-                    if is_valid:
-                        img = align_face(filename, landmarks)
-                        cv.imwrite(tarfile, img)
+    print('cropping {}...'.format(path))
+    # Preprocess the total files count
+    filecounter = 0
+    for filepath in walkdir(path, '.jpg'):
+        filecounter += 1
+
+    for filepath in tqdm(walkdir(path, '.jpg'), total=filecounter, unit="files"):
+        new_fn = filepath.replace(orgkey, newkey)
+        tardir = os.path.dirname(new_fn)
+        if not os.path.isdir(tardir):
+            os.makedirs(tardir)
+
+        if not os.path.exists(new_fn):
+            is_valid, bounding_boxes, landmarks = get_central_face_attributes(filepath)
+            print(is_valid)
+            if is_valid:
+                img = align_face(filepath, landmarks)
+                cv.imwrite(new_fn, img)
 
 
 def gen_feature(path):
@@ -120,13 +131,29 @@ def pngtojpg(path):
                 cv.imwrite(os.path.join(root, newfilename), img)
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='Train face network')
+    # general
+    parser.add_argument('--action', default='crop_megaface', help='action')
+    args = parser.parse_args()
+    return args
+
+
 if __name__ == '__main__':
+    args = parse_args()
+    if args.action == 'crop_megaface':
+        crop('megaface/MegaFace/FlickrFinal2', 'MegaFace', 'MegaFace_aligned')
+    elif args.action == 'crop_facescrub':
+        crop('/newdisk/facescrub_images', 'facescrub', 'facescrub_aligned')
+    elif args.action == 'gen_features':
+        gen_feature('megaface/facescrub_images')
+        gen_feature('megaface/MegaFace/FlickrFinal2')
+        remove_noise()
+
     # match_result()
-    crop('megaface/MegaFace/FlickrFinal2', 'MegaFace', 'MegaFace_aligned')
-    # crop('/root/lin/data/FaceScrub', 'FaceScrub', 'FaceScrub_aligned')
+    #
     # pngtojpg('/newdisk/facescrub_images')
-    # crop('/newdisk/facescrub_images', 'facescrub', 'facescrub_aligned')
-    gen_feature('megaface/facescrub_images')
+    # crop('/root/lin/data/FaceScrub', 'FaceScrub', 'FaceScrub_aligned')
     # gen_feature('/root/lin/data/FaceScrub_aligned')
-    gen_feature('megaface/MegaFace/FlickrFinal2')
-    remove_noise()
+    #
+    #
