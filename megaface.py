@@ -19,11 +19,11 @@ def walkdir(folder, ext):
     print('Walk through each files in a directory')
     for dirpath, dirs, files in os.walk(folder):
         for filename in [f for f in files if f.lower().endswith(ext)]:
-            yield (os.path.abspath(os.path.join(dirpath, filename)), orgkey, newkey)
+            yield os.path.abspath(os.path.join(dirpath, filename))
 
 
-def crop_one_image(filepath, orgkey, newkey):
-    new_fn = filepath.replace(orgkey, newkey)
+def crop_one_image(filepath, oldkey, newkey):
+    new_fn = filepath.replace(oldkey, newkey)
     tardir = os.path.dirname(new_fn)
     if not os.path.isdir(tardir):
         os.makedirs(tardir)
@@ -35,7 +35,7 @@ def crop_one_image(filepath, orgkey, newkey):
             cv.imwrite(new_fn, img)
 
 
-def crop(path, orgkey, newkey):
+def crop(path, oldkey, newkey):
     print('Cropping {}...'.format(path))
 
     # Preprocess the total files count
@@ -44,9 +44,9 @@ def crop(path, orgkey, newkey):
         filecounter += 1
 
     for filepath in walkdir(path, '.jpg'):
-        crop_one_image(filepath, orgkey, newkey)
+        crop_one_image(filepath, oldkey, newkey)
 
-    print('{} images were cropped successfully.'.format(len(r)))
+    print('{} images were cropped successfully.'.format(filecounter))
 
 
 def gen_feature(path):
