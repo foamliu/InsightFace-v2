@@ -45,8 +45,8 @@ def crop(path, orgkey, newkey):
         filecounter += 1
 
     with Pool(12) as p:
-        r = list(
-            tqdm.tqdm(p.imap(crop_one_image, walkdir(path, '.jpg', orgkey, newkey)), total=filecounter, unit="files"))
+        r = list(tqdm(p.imap(crop_one_image, walkdir(path, '.jpg', orgkey, newkey)), total=filecounter, unit="files"))
+
     print('{} images were cropped successfully.'.format(len(r)))
 
 
