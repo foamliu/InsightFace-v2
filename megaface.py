@@ -32,10 +32,13 @@ def crop_one_image(item):
         os.makedirs(tardir)
 
     if not os.path.exists(new_fn):
-        is_valid, bounding_boxes, landmarks = get_central_face_attributes(filepath)
-        if is_valid:
-            img = align_face(filepath, landmarks)
-            cv.imwrite(new_fn, img)
+        try:
+            is_valid, bounding_boxes, landmarks = get_central_face_attributes(filepath)
+            if is_valid:
+                img = align_face(filepath, landmarks)
+                cv.imwrite(new_fn, img)
+        except Exception as ex:
+            print(ex)
 
 
 def crop(path, orgkey, newkey):
