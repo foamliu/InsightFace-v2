@@ -1,5 +1,6 @@
 import argparse
 import json
+import multiprocessing as mp
 import os
 import struct
 from multiprocessing import Pool
@@ -44,7 +45,8 @@ def crop(path, orgkey, newkey):
     for filepath in walkdir(path, '.jpg', orgkey, newkey):
         filecounter += 1
 
-    with Pool(12) as p:
+    cpu_count = mp.cpu_count()
+    with Pool(cpu_count) as p:
         r = list(tqdm(p.imap(crop_one_image, walkdir(path, '.jpg', orgkey, newkey)), total=filecounter, unit="files"))
 
     print('{} images were cropped successfully.'.format(len(r)))
