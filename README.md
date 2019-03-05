@@ -129,6 +129,9 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
  
  #### Introduction
  
- MegaFace dataset includes 1,027,060 faces, 690,572 identities.
+![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_stats.png)
  
- ![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_stats.png)
+MegaFace dataset includes 1,027,060 faces, 690,572 identities. [Link](http://megaface.cs.washington.edu/)
+ 
+Challenge 1: test your method with 1 million distractors, and we used the noises list proposed by InsightFace, at https://github.com/deepinsight/insightface.
+ 
