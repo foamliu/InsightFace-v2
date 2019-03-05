@@ -39,7 +39,7 @@ def crop_one_image(item):
 
 
 def crop(path, orgkey, newkey):
-    print('cropping {}...'.format(path))
+    print('Cropping {}...'.format(path))
 
     # Preprocess the total files count
     filecounter = 0
