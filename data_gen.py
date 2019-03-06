@@ -4,7 +4,6 @@ import random
 from io import BytesIO
 
 import cv2 as cv
-import numpy as np
 import torch
 from PIL import Image
 from torch.utils.data import Dataset
@@ -46,10 +45,9 @@ class ArcFaceDataset(Dataset):
 
         filename = os.path.join(IMG_DIR, filename)
         img = cv.imread(filename)  # BGR
-        img = cv.cvtColor(img, cv.COLOR_BGR2RGB).astype(np.float32)  # RGB
-        img = self.compress_aug(img)
-        img = transforms.ToPILImage()(img)  # ToPILImage assumes RGB
-        img = self.transformer(img)
+        img = Image.fromarray(img, 'BGR')  # RGB
+        img = self.compress_aug(img)  # RGB
+        img = self.transformer(img)  # RGB
 
         return img, label
 
@@ -58,12 +56,11 @@ class ArcFaceDataset(Dataset):
 
     def compress_aug(self, img):
         buf = BytesIO()
-        img = Image.fromarray(img, 'RGB')
         q = random.randint(2, 20)
         img.save(buf, format='JPEG', quality=q)
         buf = buf.getvalue()
         img = Image.open(BytesIO(buf))
-        return np.asarray(img, np.float32)
+        return img
 
 
 if __name__ == "__main__":
