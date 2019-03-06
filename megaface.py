@@ -14,6 +14,13 @@ from config import device
 from data_gen import data_transforms
 from utils import align_face, get_central_face_attributes
 
+checkpoint = 'BEST_checkpoint.tar'
+print('loading model: {}...'.format(checkpoint))
+checkpoint = torch.load(checkpoint)
+model = checkpoint['model'].to(device)
+model.eval()
+transformer = data_transforms['val']
+
 
 def walkdir(folder, ext):
     # Walk through each files in a directory
@@ -36,8 +43,7 @@ def crop_one_image(filepath, oldkey, newkey):
 
 
 def crop(path, oldkey, newkey):
-    print('Cropping {}...'.format(path))
-
+    print('Counting images under {}...'.format(path))
     # Preprocess the total files count
     filecounter = 0
     for filepath in walkdir(path, '.jpg'):
@@ -52,23 +58,28 @@ def crop(path, oldkey, newkey):
 def gen_feature(path):
     print('gen features {}...'.format(path))
     # Preprocess the total files count
-    filecounter = 0
+    files = []
     for filepath in walkdir(path, '.jpg'):
-        filecounter += 1
+        files.append(filepath)
+    file_count = len(files)
 
-    checkpoint = torch.load('BEST_checkpoint.tar')
-    model = checkpoint['model'].to(device)
-    model.eval()
-    transformer = data_transforms['val']
+    batch_size = 128
 
     with torch.no_grad():
-        for item in tqdm(walkdir(path, '.jpg'), total=filecounter, unit="files"):
-            filepath, _, _ = item
-            tarfile = filepath + '_0.bin'
-            if not os.path.exists(tarfile):
-                tmp = torch.zeros([1, 3, 112, 112], dtype=torch.float)
-                tmp[0] = get_image(cv.imread(filepath, True), transformer)
-                feature = model(tmp.to(device))[0].cpu().numpy()
+        for start_idx in tqdm(range(0, file_count, batch_size)):
+            end_idx = min(file_count, start_idx + batch_size)
+            length = end_idx - start_idx
+
+            imgs = torch.zeros([length, 3, 112, 112], dtype=torch.float)
+            for i in range(start_idx, end_idx):
+                filepath = files[i]
+                imgs[i] = get_image(cv.imread(filepath, True), transformer)
+
+            features = model(imgs.to(device)).cpu().numpy()
+            for i in range(start_idx, end_idx):
+                filepath = files[i]
+                tarfile = filepath + '_0.bin'
+                feature = features[i]
                 write_feature(tarfile, feature / np.linalg.norm(feature))
 
 
