@@ -134,10 +134,24 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
 MegaFace dataset includes 1,027,060 faces, 690,572 identities. [Link](http://megaface.cs.washington.edu/)
  
 Challenge 1: test your method with 1 million distractors, and we used the noises list proposed by InsightFace, at https://github.com/deepinsight/insightface.
+
+### Download MegaFace and FaceScrub Images and Linux DevKit
+
+Download Linux DevKit from [MagaFace WebSite](http://megaface.cs.washington.edu/) then extract to megaface folder:
+
+```bash
+$ tar -vxf linux-devkit.tar.gz
+```
  
-#### Generate features for FaceScrub & MegaFace:
+#### Generate features
 
 ```bash
 $ python3 megaface.py --action crop_megaface
 $ python3 megaface.py --action gen_features
+```
+
+#### Start MegaFace evaluation
+```bash
+$ cd megaface/devkit/experiments
+$ python run_experiment.py -p /dev/code/mnt/InsightFace-v2/megaface/devkit/templatelists/facescrub_uncropped_features_list.json /dev/code/mnt/InsightFace-v2/megaface/MegaFace_aligned/FlickrFinal2 /dev/code/mnt/InsightFace-v2/megaface/facescrub_images _0.bin results -s 1000000
 ```
