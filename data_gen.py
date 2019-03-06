@@ -18,9 +18,9 @@ from config import num_workers, pickle_file
 data_transforms = {
     'train': transforms.Compose([
         transforms.RandomHorizontalFlip(),
+        transforms.ColorJitter(brightness=0.125, contrast=0.125, saturation=0.125, hue=0),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-        transforms.ColorJitter(brightness=0.125, contrast=0.125, saturation=0.125, hue=0)
     ]),
     'val': transforms.Compose([
         transforms.ToTensor(),
@@ -43,12 +43,13 @@ class ArcFaceDataset(Dataset):
         sample = self.samples[i]
         filename = sample['img']
         filename = os.path.join(IMG_DIR, filename)
-        img = cv.imread(filename)
+        img = cv.imread(filename)  # BGR
+        img = cv.cvtColor(img, cv.COLOR_BGR2RGB)   # RGB
         label = sample['label']
 
-        img = transforms.ToPILImage()(img)
-        img = self.transformer(img)
         img = self.compress_aug(img)
+        img = transforms.ToPILImage()(img)  # ToPILImage assumes RGB
+        img = self.transformer(img)
 
         return img, label
 
@@ -57,7 +58,7 @@ class ArcFaceDataset(Dataset):
 
     def compress_aug(self, img):
         buf = BytesIO()
-        img = Image.fromarray(img.asnumpy(), 'RGB')
+        img = Image.fromarray(img, 'RGB')
         q = random.randint(2, 20)
         img.save(buf, format='JPEG', quality=q)
         buf = buf.getvalue()
