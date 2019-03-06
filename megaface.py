@@ -165,10 +165,10 @@ if __name__ == '__main__':
     if args.action == 'crop_megaface':
         crop('megaface/MegaFace/FlickrFinal2', 'MegaFace', 'MegaFace_aligned')
     elif args.action == 'crop_facescrub':
-        crop('/newdisk/facescrub_images', 'facescrub', 'facescrub_aligned')
+        crop('megaface/facescrub_images', 'facescrub', 'facescrub_aligned')
     elif args.action == 'gen_features':
         gen_feature('megaface/facescrub_images')
         gen_feature('megaface/MegaFace_aligned/FlickrFinal2')
         remove_noise()
     elif args.action == 'pngtojpg':
-        pngtojpg('/newdisk/facescrub_images')
+        pngtojpg('megaface/facescrub_images')
