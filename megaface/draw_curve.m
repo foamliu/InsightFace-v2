@@ -12,7 +12,7 @@ semilogx(facescrub_cmc_json.cmc(1,:)+1,facescrub_cmc_json.cmc(2,:)*100,'LineWidt
 title(['Identification @ 1e6 distractors = ' num2str(facescrub_cmc_json.cmc(2,:)(1))]);
 xlabel('Rank');
 ylabel('Identification Rate %');
-ylim([0 100]);
+%ylim([0 100]);
 grid on;
 box on;
 hold on;
@@ -22,7 +22,7 @@ semilogx(facescrub_cmc_json.roc(1,:),facescrub_cmc_json.roc(2,:),'LineWidth',2);
 semilogx(xdata,ydata,'LineWidth',2);
 title(['Verification @ 1e-6 = ' num2str(interp1(xdata, ydata, 1e-6))]);
 xlim([1e-6 1]);
-ylim([0 1]);
+%ylim([0 1]);
 xlabel('False Positive Rate');
 ylabel('True Positive Rate');
 grid on;

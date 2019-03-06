@@ -178,6 +178,11 @@ Rank 1: 0.963519
 
 ##### Curves
 
-![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_cmc.jpg)
+CMC|ROC|
+|---|---|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_cmc.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_roc.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_cmc_2.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_roc_2.jpg)|
 
-![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_roc.jpg)
+
+
+
