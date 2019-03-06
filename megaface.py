@@ -77,10 +77,11 @@ def gen_feature(path):
                 imgs[idx] = get_image(cv.imread(filepath, True), transformer)
 
             features = model(imgs.to(device)).cpu().numpy()
-            for i in range(start_idx, end_idx):
+            for idx in range(0, length):
+                i = start_idx + idx
                 filepath = files[i]
                 tarfile = filepath + '_0.bin'
-                feature = features[i]
+                feature = features[idx]
                 write_feature(tarfile, feature / np.linalg.norm(feature))
 
 
