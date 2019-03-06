@@ -45,7 +45,8 @@ class ArcFaceDataset(Dataset):
 
         filename = os.path.join(IMG_DIR, filename)
         img = cv.imread(filename)  # BGR
-        img = Image.fromarray(img, 'BGR')  # RGB
+        img = img[..., ::-1]  # RGB
+        img = Image.fromarray(img, 'RGB')  # RGB
         img = self.compress_aug(img)  # RGB
         img = self.transformer(img)  # RGB
 
