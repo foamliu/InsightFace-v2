@@ -42,11 +42,11 @@ class ArcFaceDataset(Dataset):
     def __getitem__(self, i):
         sample = self.samples[i]
         filename = sample['img']
-        filename = os.path.join(IMG_DIR, filename)
-        img = cv.imread(filename)  # BGR
-        img = cv.cvtColor(img, cv.COLOR_BGR2RGB)   # RGB
         label = sample['label']
 
+        filename = os.path.join(IMG_DIR, filename)
+        img = cv.imread(filename)  # BGR
+        img = cv.cvtColor(img, cv.COLOR_BGR2RGB).astype(np.float32)  # RGB
         img = self.compress_aug(img)
         img = transforms.ToPILImage()(img)  # ToPILImage assumes RGB
         img = self.transformer(img)
@@ -63,7 +63,7 @@ class ArcFaceDataset(Dataset):
         img.save(buf, format='JPEG', quality=q)
         buf = buf.getvalue()
         img = Image.open(BytesIO(buf))
-        return np.asarray(img, np.float)
+        return np.asarray(img, np.float32)
 
 
 if __name__ == "__main__":
