@@ -125,18 +125,20 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_1.jpg)|
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_1_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_1_aligned.jpg)|
 
- ### MegaFace
+### MegaFace
  
- #### Introduction
- 
-![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_stats.png)
+#### Introduction
  
 MegaFace dataset includes 1,027,060 faces, 690,572 identities. [Link](http://megaface.cs.washington.edu/)
  
-Challenge 1: test your method with 1 million distractors, and we used the noises list proposed by InsightFace, at https://github.com/deepinsight/insightface.
+Challenge 1 is taken to test our method with 1 million distractors. 
 
-### Download MegaFace and FaceScrub Images and Linux DevKit
+![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_stats.png)
+ 
+#### Download
 
+1. Download MegaFace and FaceScrub Images
+2. Download Linux DevKit
 Download Linux DevKit from [MagaFace WebSite](http://megaface.cs.washington.edu/) then extract to megaface folder:
 
 ```bash
@@ -145,18 +147,35 @@ $ tar -vxf linux-devkit.tar.gz
  
 #### Generate features
 
+1. Crop MegaFace.
+2. Generate features for FaceScrub and MegaFace.
+3. Remove noises. 
+Note: we used the noises list proposed by InsightFace, at https://github.com/deepinsight/insightface.
+
 ```bash
 $ python3 megaface.py --action crop_megaface
 $ python3 megaface.py --action gen_features
 ```
 
-#### Start MegaFace evaluation
+#### Evaluation
+
+Start MegaFace evaluation through devkit: 
+
 ```bash
 $ cd megaface/devkit/experiments
 $ python run_experiment.py -p /dev/code/mnt/InsightFace-v2/megaface/devkit/templatelists/facescrub_uncropped_features_list.json /dev/code/mnt/InsightFace-v2/megaface/MegaFace_aligned/FlickrFinal2 /dev/code/mnt/InsightFace-v2/megaface/facescrub_images _0.bin results -s 1000000
 ```
 
 #### Results
+
+##### Curves
+
+Draw curves with matlab script @ megaface/draw_curve.m. 
+
+CMC|ROC|
+|---|---|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_cmc.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_roc.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_cmc_2.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_roc_2.jpg)|
 
 ##### Textual results
 <pre>
@@ -175,14 +194,4 @@ Done Making Gallery!
 Allocating ranks (972393)
 Rank 1: 0.963519
 </pre>
-
-##### Curves
-
-CMC|ROC|
-|---|---|
-|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_cmc.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_roc.jpg)|
-|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_cmc_2.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_roc_2.jpg)|
-
-
-
 
