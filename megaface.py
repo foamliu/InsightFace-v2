@@ -105,7 +105,7 @@ def write_feature(filename, m):
 
 def remove_noise():
     for line in open('megaface/megaface_noises.txt', 'r'):
-        filename = 'megaface/MegaFace/FlickrFinal2/' + line.strip() + '_0.bin'
+        filename = 'megaface/MegaFace_aligned/FlickrFinal2/' + line.strip() + '_0.bin'
         if os.path.exists(filename):
             print(filename)
             os.remove(filename)
@@ -168,7 +168,7 @@ if __name__ == '__main__':
         crop('/newdisk/facescrub_images', 'facescrub', 'facescrub_aligned')
     elif args.action == 'gen_features':
         gen_feature('megaface/facescrub_images')
-        gen_feature('megaface/MegaFace/FlickrFinal2')
+        gen_feature('megaface/MegaFace_aligned/FlickrFinal2')
         remove_noise()
     elif args.action == 'pngtojpg':
         pngtojpg('/newdisk/facescrub_images')
