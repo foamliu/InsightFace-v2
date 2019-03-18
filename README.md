@@ -112,7 +112,7 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
 
 
 ##### False Negative
-12 false negative, these 10 are randomly chosen:
+12 false negative:
 
 1|2|1|2|
 |---|---|---|---|
@@ -124,6 +124,11 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/4_fn_1_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/5_fn_1_aligned.jpg)|
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_1.jpg)|
 |![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/6_fn_1_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/7_fn_1_aligned.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/8_fn_1_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/9_fn_1_aligned.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/10_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/10_fn_1.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/11_fn_0.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/11_fn_1.jpg)|
+|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/10_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/10_fn_1_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/11_fn_0_aligned.jpg)|![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/11_fn_1_aligned.jpg)|
+
 
 ### MegaFace
  
