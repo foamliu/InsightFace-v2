@@ -29,8 +29,8 @@ if __name__ == "__main__":
     sample = random.sample(samples, 1)[0]
     filename = sample['img']
     filename = os.path.join(IMG_DIR, filename)
+    print(filename)
     transformer = data_transforms['train-enhanced']
-    filename = os.path.join(IMG_DIR, filename)
     img = cv.imread(filename)  # BGR
     img = img[..., ::-1]  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
