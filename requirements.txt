@@ -9,4 +9,4 @@ numpy
 scikit-image
 torchsummary
 tensorboardX
-
+imgaug
