@@ -49,5 +49,4 @@ if __name__ == "__main__":
     img = transformer(img)  # RGB
     img = np.array(img)
     img = img[..., ::-1]  # BGR
-    cv.imshow('image', img)
-    cv.waitKey(0)
+    cv.imwrite('out.png', img)
