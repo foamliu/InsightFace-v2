@@ -78,7 +78,7 @@ seq = iaa.Sequential(
                        # In the other 50% of all cases it is sampled once per
                        # pixel (i.e. brightness change).
                        iaa.AdditiveGaussianNoise(
-                           loc=0, scale=(0.0, 0.05 * 255), per_channel=0.5
+                           loc=0, scale=(0.0, 0.03 * 255), per_channel=0.5
                        ),
 
                        # Either drop randomly 1 to 10% of all pixels (i.e. set
@@ -86,7 +86,7 @@ seq = iaa.Sequential(
                        # of the original size, leading to large dropped
                        # rectangles.
                        iaa.OneOf([
-                           iaa.Dropout((0.01, 0.1), per_channel=0.5),
+                           iaa.Dropout((0.01, 0.05), per_channel=0.5),
                            iaa.CoarseDropout(
                                (0.03, 0.15), size_percent=(0.02, 0.05),
                                per_channel=0.2
