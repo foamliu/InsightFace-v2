@@ -19,12 +19,54 @@ data_transforms = {
     ]),
 }
 transformer = data_transforms['train']
+sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 
 # Define our sequence of augmentation steps that will be applied to every image.
 seq = iaa.Sequential(
     [
         iaa.Fliplr(0.5),  # horizontally flip 50% of all images
-        # iaa.Sometimes(0.5, iaa.Grayscale(alpha=1.0))
+
+        iaa.SomeOf((0, 2),
+                   [
+                       iaa.OneOf([
+                           iaa.GaussianBlur((0, 0.5)),
+                           iaa.AverageBlur(k=(2, 3)),
+                           iaa.MedianBlur(k=(3, 4)),
+                       ]),
+
+                       sometimes(iaa.OneOf([
+                           iaa.EdgeDetect(alpha=(0, 0.7)),
+                           iaa.DirectedEdgeDetect(
+                               alpha=(0, 0.7), direction=(0.0, 1.0)
+                           ),
+                       ])),
+
+                       iaa.AdditiveGaussianNoise(
+                           loc=0, scale=(0.0, 0.01 * 255), per_channel=0.5
+                       ),
+
+                       iaa.OneOf([
+                           iaa.Dropout((0.01, 0.02), per_channel=0.5),
+                           iaa.CoarseDropout(
+                               (0.03, 0.15), size_percent=(0.01, 0.02),
+                               per_channel=0.2
+                           ),
+                       ]),
+
+                       # Add a value of -10 to 10 to each pixel.
+                       iaa.Add((-5, 5), per_channel=0.5),
+
+                       # Change brightness of images (50-150% of original value).
+                       iaa.Multiply((0.9, 1.1), per_channel=0.5),
+
+                       # Improve or worsen the contrast of images.
+                       iaa.ContrastNormalization((0.9, 1.1), per_channel=0.5),
+
+                       iaa.Grayscale(alpha=1.0),
+                   ],
+                   # do all of the above augmentations in random order
+                   random_order=True
+                   )
     ]
 )
 
