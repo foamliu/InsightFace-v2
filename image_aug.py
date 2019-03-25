@@ -15,7 +15,6 @@ from config import pickle_file
 # Just normalization for validation
 data_transforms = {
     'train': transforms.Compose([
-        transforms.ColorJitter(brightness=0.6, contrast=0.6, saturation=0.6, hue=0.2),
     ]),
 }
 transformer = data_transforms['train']
@@ -25,43 +24,42 @@ sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 seq = iaa.Sequential(
     [
         iaa.Fliplr(0.5),  # horizontally flip 50% of all images
+        iaa.Grayscale(alpha=(0.0, 1.0)),
 
-        iaa.OneOf([
-            iaa.SomeOf((0, 2),
-                       [
-                           iaa.OneOf([
-                               iaa.GaussianBlur((0, 0.5)),
-                               iaa.AverageBlur(k=(2, 3)),
-                               iaa.MedianBlur(k=(3, 5)),
-                           ]),
+        iaa.SomeOf((0, 2),
+                   [
+                       iaa.OneOf([
+                           iaa.GaussianBlur((0, 0.5)),
+                           iaa.AverageBlur(k=(2, 3)),
+                           iaa.MedianBlur(k=(3, 5)),
+                       ]),
 
-                           iaa.AdditiveGaussianNoise(
-                               loc=0, scale=(0.0, 0.01 * 255), per_channel=0.5
-                           ),
-
-                           iaa.OneOf([
-                               iaa.Dropout((0.01, 0.02), per_channel=0.5),
-                               iaa.CoarseDropout(
-                                   (0.03, 0.15), size_percent=(0.01, 0.02),
-                                   per_channel=0.2
-                               ),
-                           ]),
-
-                           # Add a value of -10 to 10 to each pixel.
-                           iaa.Add((-5, 5), per_channel=0.5),
-
-                           # Change brightness of images (50-150% of original value).
-                           iaa.Multiply((0.9, 1.1), per_channel=0.5),
-
-                           # Improve or worsen the contrast of images.
-                           iaa.ContrastNormalization((0.9, 1.1), per_channel=0.5),
-
-                       ],
-                       # do all of the above augmentations in random order
-                       random_order=True
+                       iaa.AdditiveGaussianNoise(
+                           loc=0, scale=(0.0, 0.01 * 255), per_channel=0.5
                        ),
-            iaa.Grayscale(alpha=1.0)
-        ])
+
+                       iaa.OneOf([
+                           iaa.Dropout((0.01, 0.02), per_channel=0.5),
+                           iaa.CoarseDropout(
+                               (0.03, 0.15), size_percent=(0.01, 0.02),
+                               per_channel=0.2
+                           ),
+                       ]),
+
+                       # Add a value of -10 to 10 to each pixel.
+                       iaa.Add((-5, 5), per_channel=0.5),
+
+                       # Change brightness of images (50-150% of original value).
+                       iaa.Multiply((0.9, 1.1), per_channel=0.5),
+
+                       # Improve or worsen the contrast of images.
+                       iaa.ContrastNormalization((0.9, 1.1), per_channel=0.5),
+
+                   ],
+                   # do all of the above augmentations in random order
+                   random_order=True
+                   ),
+
     ]
 )
 
