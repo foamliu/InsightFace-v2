@@ -32,7 +32,7 @@ seq = iaa.Sequential(
                        iaa.OneOf([
                            iaa.GaussianBlur((0, 0.5)),
                            iaa.AverageBlur(k=(2, 3)),
-                           iaa.MedianBlur(k=(3, 4)),
+                           iaa.MedianBlur(k=(3, 5)),
                        ]),
 
                        sometimes(iaa.OneOf([
