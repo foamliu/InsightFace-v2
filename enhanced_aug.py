@@ -1,6 +1,7 @@
 import os
 import pickle
 import random
+from io import BytesIO
 
 import cv2 as cv
 import numpy as np
@@ -21,6 +22,16 @@ data_transforms = {
     ]),
 }
 
+
+def compress_aug(img):
+    buf = BytesIO()
+    q = random.randint(2, 20)
+    img.save(buf, format='JPEG', quality=q)
+    buf = buf.getvalue()
+    img = Image.open(BytesIO(buf))
+    return img
+
+
 if __name__ == "__main__":
     with open(pickle_file, 'rb') as file:
         data = pickle.load(file)
@@ -34,7 +45,7 @@ if __name__ == "__main__":
     img = cv.imread(filename)  # BGR
     img = img[..., ::-1]  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
-    # img = compress_aug(img)  # RGB
+    img = compress_aug(img)  # RGB
     img = transformer(img)  # RGB
     img = np.array(img)
     img = img[..., ::-1]  # BGR
