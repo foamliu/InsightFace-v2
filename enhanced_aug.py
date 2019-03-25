@@ -38,25 +38,14 @@ seq = iaa.Sequential(
         #
         iaa.SomeOf((0, 5),
                    [
-                       # Convert some images into their superpixel representation,
-                       # sample between 20 and 200 superpixels per image, but do
-                       # not replace all superpixels with their average, only
-                       # some of them (p_replace).
-                       sometimes(
-                           iaa.Superpixels(
-                               p_replace=(0, 1.0),
-                               n_segments=(20, 200)
-                           )
-                       ),
-
                        # Blur each image with varying strength using
                        # gaussian blur (sigma between 0 and 3.0),
                        # average/uniform blur (kernel size between 2x2 and 7x7)
                        # median blur (kernel size between 3x3 and 11x11).
                        iaa.OneOf([
-                           iaa.GaussianBlur((0, 3.0)),
-                           iaa.AverageBlur(k=(2, 7)),
-                           iaa.MedianBlur(k=(3, 11)),
+                           iaa.GaussianBlur((0, 0.50)),
+                           iaa.AverageBlur(k=(2, 3)),
+                           iaa.MedianBlur(k=(3, 5)),
                        ]),
 
                        # Sharpen each image, overlay the result with the original
