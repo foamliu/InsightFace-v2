@@ -1,7 +1,6 @@
 import os
 import pickle
 import random
-from io import BytesIO
 
 import cv2 as cv
 import numpy as np
@@ -137,26 +136,7 @@ seq = iaa.Sequential(
 )
 
 
-def compress_aug(img):
-    buf = BytesIO()
-    q = random.randint(2, 20)
-    img.save(buf, format='JPEG', quality=q)
-    buf = buf.getvalue()
-    img = Image.open(BytesIO(buf))
-    return img
-
-
-def contrast_aug(src, x):
-    alpha = 1.0 + random.uniform(-x, x)
-    coef = np.array([[[0.299, 0.587, 0.114]]])
-    gray = src * coef
-    gray = (3.0 * (1.0 - alpha) / gray.size) * np.sum(gray)
-    src *= alpha
-    src += gray
-    return src
-
-
-def saturation_aug(src):
+def image_aug(src):
     src = np.expand_dims(src, axis=0)
     augs = seq.augment_images(src)
     aug = augs[0]
@@ -176,7 +156,7 @@ if __name__ == "__main__":
     img = cv.imread(filename)  # BGR
     cv.imwrite('origin.png', img)
     img = img[..., ::-1]  # RGB
-    img = saturation_aug(img)  # RGB
+    img = image_aug(img)  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
     # img = compress_aug(img)  # RGB
     # img = transformer(img)  # RGB
