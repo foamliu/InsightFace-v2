@@ -65,7 +65,7 @@ if __name__ == "__main__":
     cv.imwrite('origin.png', img)
     img = img[..., ::-1]  # RGB
     img = img.astype(np.float32)
-    img = saturation_aug(img, 0.1)  # RGB
+    img = saturation_aug(img)  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
     # img = compress_aug(img)  # RGB
     # img = transformer(img)  # RGB
