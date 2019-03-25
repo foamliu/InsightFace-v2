@@ -47,7 +47,7 @@ def contrast_aug(src, x):
 
 
 def saturation_aug(src):
-    aug = seq.augment_images(src)
+    aug = seq.augment_images([src])[0]
     return aug
 
 
