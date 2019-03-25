@@ -26,7 +26,7 @@ if __name__ == "__main__":
         data = pickle.load(file)
 
     samples = data
-    sample = random.sample(samples, 1)
+    sample = random.sample(samples, 1)[0]
     filename = sample['img']
     filename = os.path.join(IMG_DIR, filename)
     transformer = data_transforms['train-enhanced']
