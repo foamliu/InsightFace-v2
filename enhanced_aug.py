@@ -21,19 +21,11 @@ data_transforms = {
     ]),
 }
 
-# Sometimes(0.5, ...) applies the given augmenter in 50% of all cases,
-# e.g. Sometimes(0.5, GaussianBlur(0.3)) would blur roughly every second
-# image.
-sometimes = lambda aug: iaa.Sometimes(0.5, aug)
-
 # Define our sequence of augmentation steps that will be applied to every image.
 seq = iaa.Sequential(
     [
         iaa.Fliplr(0.5),  # horizontally flip 50% of all images
 
-        # Convert each image to grayscale and then overlay the
-        # result with the original with random alpha. I.e. remove
-        # colors with varying strengths.
         iaa.Sometimes(0.5,
                       iaa.Grayscale(alpha=1.0),
                       ),
