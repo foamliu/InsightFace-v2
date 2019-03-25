@@ -39,4 +39,4 @@ if __name__ == "__main__":
     img = np.array(img)
     img = img[..., ::-1]  # BGR
     cv.imshow('image', img)
-    # cv.waitKey(0)
+    cv.waitKey(0)
