@@ -1,8 +1,6 @@
 import os
 import pickle
-import random
-from io import BytesIO
-from image_aug import image_aug
+
 import cv2 as cv
 from PIL import Image
 from torch.utils.data import Dataset
@@ -10,12 +8,14 @@ from torchvision import transforms
 
 from config import IMG_DIR
 from config import pickle_file
+from image_aug import image_aug
 
 # Data augmentation and normalization for training
 # Just normalization for validation
 data_transforms = {
     'train': transforms.Compose([
         transforms.RandomHorizontalFlip(),
+        transforms.ColorJitter(brightness=0.6, contrast=0.6, saturation=0.6, hue=0.2),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
     ]),
