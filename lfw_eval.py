@@ -8,8 +8,8 @@ import cv2 as cv
 import numpy as np
 import scipy.stats
 import torch
+from PIL import Image
 from matplotlib import pyplot as plt
-from torchvision import transforms
 from tqdm import tqdm
 
 from config import device
@@ -66,8 +66,9 @@ def get_image(samples, transformer, file):
     sample = filtered[0]
     full_path = sample['full_path']
     landmarks = sample['landmarks']
-    img = align_face(full_path, landmarks)
-    img = transforms.ToPILImage()(img)
+    img = align_face(full_path, landmarks)  # BGR
+    img = img[..., ::-1]  # RGB
+    img = Image.fromarray(img, 'RGB')  # RGB
     img = transformer(img)
     img = img.to(device)
     return img

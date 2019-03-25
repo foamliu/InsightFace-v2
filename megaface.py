@@ -7,7 +7,7 @@ import cv2 as cv
 import numpy as np
 import torch
 import tqdm
-from torchvision import transforms
+from PIL import Image
 from tqdm import tqdm
 
 from config import device
@@ -86,7 +86,8 @@ def gen_feature(path):
 
 
 def get_image(img, transformer):
-    img = transforms.ToPILImage()(img)
+    img = img[..., ::-1]  # RGB
+    img = Image.fromarray(img, 'RGB')  # RGB
     img = transformer(img)
     return img.to(device)
 

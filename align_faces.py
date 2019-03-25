@@ -137,7 +137,7 @@ def get_affine_transform_matrix(src_pts, dst_pts):
     return tfm
 
 
-def warp_and_crop_face(src_img,
+def warp_and_crop_face(src_img,  # BGR
                        facial_pts,
                        reference_pts=None,
                        crop_size=(96, 112),
@@ -192,4 +192,4 @@ def warp_and_crop_face(src_img,
 
     face_img = cv2.warpAffine(src_img, tfm, (crop_size[0], crop_size[1]))
 
-    return face_img
+    return face_img  # BGR
