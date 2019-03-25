@@ -67,6 +67,7 @@ if __name__ == "__main__":
     img = cv.imread(filename)  # BGR
     cv.imwrite('origin.png', img)
     img = img[..., ::-1]  # RGB
+    img = img.astype(np.float32)
     img = contrast_aug(img, 0.5)  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
     # img = compress_aug(img)  # RGB
