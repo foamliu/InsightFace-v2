@@ -31,9 +31,8 @@ seq = iaa.Sequential(
                       ),
 
         # Improve or worsen the contrast of images.
-        iaa.ContrastNormalization((0.5, 2.0), per_channel=0.5),
+        # iaa.ContrastNormalization((0.5, 2.0), per_channel=0.5),
     ],
-    # do all of the above augmentations in random order
     random_order=True
 )
 
