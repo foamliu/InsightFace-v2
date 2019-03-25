@@ -25,8 +25,9 @@ sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 seq = iaa.Sequential(
     [
         iaa.Fliplr(0.5),  # horizontally flip 50% of all images
+        sometimes(iaa.Grayscale(alpha=1.0)),
 
-        iaa.SomeOf((0, 2),
+        iaa.SomeOf((0, 3),
                    [
                        iaa.OneOf([
                            iaa.GaussianBlur((0, 0.5)),
@@ -61,8 +62,6 @@ seq = iaa.Sequential(
 
                        # Improve or worsen the contrast of images.
                        iaa.ContrastNormalization((0.9, 1.1), per_channel=0.5),
-
-                       iaa.Grayscale(alpha=1.0),
                    ],
                    # do all of the above augmentations in random order
                    random_order=True
