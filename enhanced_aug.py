@@ -91,11 +91,11 @@ seq = iaa.Sequential(
         #
         #                # Change brightness of images (50-150% of original value).
         #                iaa.Multiply((0.5, 1.5), per_channel=0.5),
-
-                   ],
-                   # do all of the above augmentations in random order
-                   random_order=True
-                   )
+        #
+        #            ],
+        #            # do all of the above augmentations in random order
+        #            random_order=True
+        #            )
     ],
     # do all of the above augmentations in random order
     random_order=True
