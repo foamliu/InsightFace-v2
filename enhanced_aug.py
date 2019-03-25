@@ -61,25 +61,14 @@ seq = iaa.Sequential(
                        # (full sharpening effect).
                        iaa.Sharpen(alpha=(0, 1.0), lightness=(0.75, 1.5)),
 
-                       # Search in some images either for all edges or for
-                       # directed edges. These edges are then marked in a black
-                       # and white image and overlayed with the original image
-                       # using an alpha of 0 to 0.7.
-                       sometimes(iaa.OneOf([
-                           iaa.EdgeDetect(alpha=(0, 0.7)),
-                           iaa.DirectedEdgeDetect(
-                               alpha=(0, 0.7), direction=(0.0, 1.0)
-                           ),
-                       ])),
-
                        # Add gaussian noise to some images.
                        # In 50% of these cases, the noise is randomly sampled per
                        # channel and pixel.
                        # In the other 50% of all cases it is sampled once per
                        # pixel (i.e. brightness change).
-                       iaa.AdditiveGaussianNoise(
-                           loc=0, scale=(0.0, 0.03 * 255), per_channel=0.5
-                       ),
+                       # iaa.AdditiveGaussianNoise(
+                       #     loc=0, scale=(0.0, 0.03 * 255), per_channel=0.5
+                       # ),
 
                        # Either drop randomly 1 to 10% of all pixels (i.e. set
                        # them to black) or drop them on an image with 2-5% percent
