@@ -74,4 +74,5 @@ if __name__ == "__main__":
     # img = transformer(img)  # RGB
     img = np.array(img)
     img = img[..., ::-1]  # BGR
+    img = img.astype(np.uint8)
     cv.imwrite('out.png', img)
