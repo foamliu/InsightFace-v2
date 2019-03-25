@@ -4,7 +4,6 @@ import random
 
 import cv2 as cv
 import numpy as np
-from PIL import Image
 from imgaug import augmenters as iaa
 from torchvision import transforms
 
@@ -65,9 +64,6 @@ seq = iaa.Sequential(
                        # (full sharpening effect).
                        iaa.Sharpen(alpha=(0, 1.0), lightness=(0.75, 1.5)),
 
-                       # Same as sharpen, but for an embossing effect.
-                       iaa.Emboss(alpha=(0, 1.0), strength=(0, 2.0)),
-
                        # Search in some images either for all edges or for
                        # directed edges. These edges are then marked in a black
                        # and white image and overlayed with the original image
@@ -122,10 +118,7 @@ seq = iaa.Sequential(
                        # strengths).
                        sometimes(
                            iaa.ElasticTransformation(alpha=(0.5, 3.5), sigma=0.25)
-                       ),
-
-                       # In some images distort local areas with varying strength.
-                       sometimes(iaa.PiecewiseAffine(scale=(0.01, 0.05)))
+                       )
                    ],
                    # do all of the above augmentations in random order
                    random_order=True
@@ -157,9 +150,5 @@ if __name__ == "__main__":
     cv.imwrite('origin.png', img)
     img = img[..., ::-1]  # RGB
     img = image_aug(img)  # RGB
-    img = Image.fromarray(img, 'RGB')  # RGB
-    # img = compress_aug(img)  # RGB
-    # img = transformer(img)  # RGB
-    img = np.array(img)
     img = img[..., ::-1]  # BGR
     cv.imwrite('out.png', img)
