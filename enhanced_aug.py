@@ -2,12 +2,12 @@ import os
 import pickle
 import random
 from io import BytesIO
-
+import imgaug
 import cv2 as cv
 import numpy as np
 from PIL import Image
 from torchvision import transforms
-
+from imgaug import augmenters as iaa
 from config import IMG_DIR
 from config import pickle_file
 
@@ -22,6 +22,10 @@ data_transforms = {
     ]),
 }
 
+seq = iaa.Sequential([
+    iaa.Fliplr(0.5), # horizontally flip 50% of the images
+    iaa.Grayscale(alpha=(0.0, 1.0))
+])
 
 def compress_aug(img):
     buf = BytesIO()
@@ -42,16 +46,9 @@ def contrast_aug(src, x):
     return src
 
 
-def saturation_aug(src, x):
-    alpha = 1.0 + random.uniform(-x, x)
-
-    coef = np.array([[[0.299, 0.587, 0.114]]])
-    gray = src * coef
-    gray = np.sum(gray, axis=2, keepdims=True)
-    gray *= (1.0 - alpha)
-    src *= alpha
-    src += gray
-    return src
+def saturation_aug(src):
+    aug = seq.augment_images(src)
+    return aug
 
 
 if __name__ == "__main__":
