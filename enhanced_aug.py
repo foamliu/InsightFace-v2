@@ -32,6 +32,28 @@ def compress_aug(img):
     return img
 
 
+def contrast_aug(src, x):
+    alpha = 1.0 + random.uniform(-x, x)
+    coef = np.array([[[0.299, 0.587, 0.114]]])
+    gray = src * coef
+    gray = (3.0 * (1.0 - alpha) / gray.size) * np.sum(gray)
+    src *= alpha
+    src += gray
+    return src
+
+
+def saturation_aug(src, x):
+    alpha = 1.0 + random.uniform(-x, x)
+
+    coef = np.array([[[0.299, 0.587, 0.114]]])
+    gray = src * coef
+    gray = np.sum(gray, axis=2, keepdims=True)
+    gray *= (1.0 - alpha)
+    src *= alpha
+    src += gray
+    return src
+
+
 if __name__ == "__main__":
     with open(pickle_file, 'rb') as file:
         data = pickle.load(file)
@@ -47,6 +69,7 @@ if __name__ == "__main__":
     img = img[..., ::-1]  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
     # img = compress_aug(img)  # RGB
+    img = contrast_aug(img, 0.5)  # RGB
     img = transformer(img)  # RGB
     img = np.array(img)
     img = img[..., ::-1]  # BGR
