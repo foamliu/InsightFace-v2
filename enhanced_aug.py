@@ -46,7 +46,7 @@ if __name__ == "__main__":
     cv.imwrite('origin.png', img)
     img = img[..., ::-1]  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
-    img = compress_aug(img)  # RGB
+    # img = compress_aug(img)  # RGB
     img = transformer(img)  # RGB
     img = np.array(img)
     img = img[..., ::-1]  # BGR
