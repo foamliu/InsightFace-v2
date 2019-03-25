@@ -43,6 +43,7 @@ if __name__ == "__main__":
     print(filename)
     transformer = data_transforms['train-enhanced']
     img = cv.imread(filename)  # BGR
+    cv.imwrite('origin.png', img)
     img = img[..., ::-1]  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
     img = compress_aug(img)  # RGB
