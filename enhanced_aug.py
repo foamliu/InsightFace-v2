@@ -31,6 +31,14 @@ seq = iaa.Sequential(
     [
         iaa.Fliplr(0.5),  # horizontally flip 50% of all images
 
+        # Convert each image to grayscale and then overlay the
+        # result with the original with random alpha. I.e. remove
+        # colors with varying strengths.
+        iaa.Grayscale(alpha=(0.0, 1.0)),
+
+        # Improve or worsen the contrast of images.
+        iaa.ContrastNormalization((0.5, 2.0), per_channel=0.5),
+
         #
         # Execute 0 to 5 of the following (less important) augmenters per
         # image. Don't execute all of them, as that would often be way too
@@ -95,19 +103,6 @@ seq = iaa.Sequential(
                        # Change brightness of images (50-150% of original value).
                        iaa.Multiply((0.5, 1.5), per_channel=0.5),
 
-                       # Improve or worsen the contrast of images.
-                       iaa.ContrastNormalization((0.5, 2.0), per_channel=0.5),
-
-                       # Convert each image to grayscale and then overlay the
-                       # result with the original with random alpha. I.e. remove
-                       # colors with varying strengths.
-                       iaa.Grayscale(alpha=(0.0, 1.0)),
-
-                       # In some images move pixels locally around (with random
-                       # strengths).
-                       sometimes(
-                           iaa.ElasticTransformation(alpha=(0.5, 3.5), sigma=0.25)
-                       )
                    ],
                    # do all of the above augmentations in random order
                    random_order=True
