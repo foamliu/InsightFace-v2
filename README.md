@@ -154,6 +154,8 @@ $ tar -vxf linux-devkit.tar.gz
 Note: we used the noises list proposed by InsightFace, at https://github.com/deepinsight/insightface.
 
 ```bash
+$ find megaface/facescrub_images -name "*.bin" -type f -delete
+$ find megaface/MegaFace_aligned/FlickrFinal2 -name "*.bin" -type f -delete
 $ python3 megaface.py --action crop_megaface
 $ python3 megaface.py --action gen_features
 ```
