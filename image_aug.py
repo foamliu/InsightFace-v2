@@ -23,7 +23,7 @@ transformer = data_transforms['train']
 seq = iaa.Sequential(
     [
         iaa.Fliplr(0.5),  # horizontally flip 50% of all images
-        iaa.Sometimes(1.0,
+        iaa.Sometimes(0.2,
                       iaa.Grayscale(alpha=1.0)
                       )
     ]
