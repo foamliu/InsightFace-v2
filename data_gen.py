@@ -42,8 +42,7 @@ class ArcFaceDataset(Dataset):
         img = cv.imread(filename)  # BGR
         img = img[..., ::-1]  # RGB
         img = Image.fromarray(img, 'RGB')  # RGB
-        if self.split == 'train':
-            img = image_aug(img)  # RGB
+        img = image_aug(img)  # RGB
         img = self.transformer(img)  # RGB
 
         return img, label
