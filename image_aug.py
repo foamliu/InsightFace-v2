@@ -18,13 +18,12 @@ data_transforms = {
     ]),
 }
 transformer = data_transforms['train']
-sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 
 # Define our sequence of augmentation steps that will be applied to every image.
 seq = iaa.Sequential(
     [
         iaa.Fliplr(0.5),  # horizontally flip 50% of all images
-        iaa.Sometimes(0.2,
+        iaa.Sometimes(1.0,
                       iaa.Grayscale(alpha=1.0)
                       )
     ]
