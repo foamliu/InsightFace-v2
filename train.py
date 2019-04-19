@@ -116,7 +116,7 @@ def train_net(args):
 
         # One epoch's validation
         lfw_acc, threshold = lfw_test(model)
-        writer.add_scalar('LFW Accuracy', lfw_acc, epoch)
+        writer.add_scalar('LFW_Accuracy', lfw_acc, epoch)
 
         # Check if there was an improvement
         is_best = lfw_acc > best_acc
