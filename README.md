@@ -197,6 +197,7 @@ Done sorting distractor scores
 Making gallery!
 Done Making Gallery!
 Allocating ranks (972393)
-Rank 1: 0.963519
+
+Rank 1: 0.964733
 </pre>
 
