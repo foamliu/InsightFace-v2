@@ -83,6 +83,8 @@ def evaluate(model):
         data = pickle.load(file)
 
     samples = data['samples']
+    print(len(samples))
+    print(samples[:10])
 
     filename = 'data/lfw_test_pair.txt'
     with open(filename, 'r') as file:
