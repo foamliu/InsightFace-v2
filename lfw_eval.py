@@ -98,9 +98,10 @@ def evaluate(model):
             img0 = get_image(samples, transformer, file0)
             file1 = tokens[1]
             img1 = get_image(samples, transformer, file1)
-            imgs = torch.zeros([2, 3, 112, 112], dtype=torch.float)
+            imgs = torch.zeros([2, 3, 112, 112], dtype=torch.float, device=device)
             imgs[0] = img0
             imgs[1] = img1
+
             output = model(imgs)
 
             feature0 = output[0].cpu().numpy()
