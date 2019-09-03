@@ -61,6 +61,8 @@ def process():
 
 
 def get_image(samples, transformer, file):
+    print(len(samples))
+    print(samples[:10])
     filtered = [sample for sample in samples if file in sample['full_path'].replace('\\', '/')]
     assert (len(filtered) == 1), 'len(filtered): {} file:{}'.format(len(filtered), file)
     sample = filtered[0]
