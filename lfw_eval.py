@@ -316,7 +316,7 @@ def lfw_test(model):
 if __name__ == "__main__":
     checkpoint = 'BEST_checkpoint.tar'
     checkpoint = torch.load(checkpoint)
-    model = checkpoint['model']
+    model = checkpoint['model'].module
     model = model.to(device)
     model.eval()
 
