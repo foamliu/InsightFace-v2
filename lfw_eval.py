@@ -26,6 +26,7 @@ def extract(filename):
 
 
 def process():
+    print('process')
     subjects = [d for d in os.listdir('data/lfw_funneled') if os.path.isdir(os.path.join('data/lfw_funneled', d))]
     assert (len(subjects) == 5749), "Number of subjects is: {}!".format(len(subjects))
 
