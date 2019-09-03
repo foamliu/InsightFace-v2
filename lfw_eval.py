@@ -30,7 +30,7 @@ def process():
     assert (len(subjects) == 5749), "Number of subjects is: {}!".format(len(subjects))
 
     file_names = []
-    for i in range(len(subjects)):
+    for i in tqdm(range(len(subjects))):
         sub = subjects[i]
         folder = os.path.join('data/lfw_funneled', sub)
         files = [f for f in os.listdir(folder) if
@@ -42,7 +42,7 @@ def process():
     assert (len(file_names) == 13233), "Number of files is: {}!".format(len(file_names))
 
     samples = []
-    for item in file_names:
+    for item in tqdm(file_names):
         filename = item['filename']
         class_id = item['class_id']
         sub = item['subject']
@@ -92,7 +92,7 @@ def evaluate(model):
 
     start = time.time()
     with torch.no_grad():
-        for line in lines:
+        for line in tqdm(lines):
             tokens = line.split()
             file0 = tokens[0]
             img0 = get_image(samples, transformer, file0)
