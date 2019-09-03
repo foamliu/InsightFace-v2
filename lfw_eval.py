@@ -47,7 +47,6 @@ def process():
         class_id = item['class_id']
         sub = item['subject']
         is_valid, bounding_boxes, landmarks = get_central_face_attributes(filename)
-        print(is_valid)
 
         if is_valid:
             samples.append(
@@ -62,8 +61,6 @@ def process():
 
 
 def get_image(samples, transformer, file):
-    print(len(samples))
-    print(samples[:10])
     filtered = [sample for sample in samples if file in sample['full_path'].replace('\\', '/')]
     assert (len(filtered) == 1), 'len(filtered): {} file:{}'.format(len(filtered), file)
     sample = filtered[0]
@@ -84,8 +81,6 @@ def evaluate(model):
         data = pickle.load(file)
 
     samples = data['samples']
-    print(len(samples))
-    print(samples[:10])
 
     filename = 'data/lfw_test_pair.txt'
     with open(filename, 'r') as file:
