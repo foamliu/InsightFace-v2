@@ -26,7 +26,6 @@ def extract(filename):
 
 
 def process():
-    print('process')
     subjects = [d for d in os.listdir('data/lfw_funneled') if os.path.isdir(os.path.join('data/lfw_funneled', d))]
     assert (len(subjects) == 5749), "Number of subjects is: {}!".format(len(subjects))
 
@@ -48,6 +47,7 @@ def process():
         class_id = item['class_id']
         sub = item['subject']
         is_valid, bounding_boxes, landmarks = get_central_face_attributes(filename)
+        print(is_valid)
 
         if is_valid:
             samples.append(
