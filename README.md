@@ -132,15 +132,14 @@ See also [LFW Face Database Errata](http://vis-www.cs.umass.edu/lfw/index.html#e
  
 MegaFace dataset includes 1,027,060 faces, 690,572 identities. [Link](http://megaface.cs.washington.edu/)
  
-Challenge 1 is taken to test our method with 1 million distractors. 
+Challenge 1 is taken to test our model with 1 million distractors. 
 
 ![image](https://github.com/foamliu/InsightFace-v2/raw/master/images/megaface_stats.png)
  
 #### Download
 
 1. Download MegaFace and FaceScrub Images
-2. Download Linux DevKit
-Download Linux DevKit from [MagaFace WebSite](http://megaface.cs.washington.edu/) then extract to megaface folder:
+2. Download Linux DevKit from [MagaFace WebSite](http://megaface.cs.washington.edu/) then extract to megaface folder:
 
 ```bash
 $ tar -vxf linux-devkit.tar.gz
@@ -197,6 +196,7 @@ Done sorting distractor scores
 Making gallery!
 Done Making Gallery!
 Allocating ranks (972393)
-Rank 1: 0.963519
+
+Rank 1: 0.964733
 </pre>
 

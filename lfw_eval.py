@@ -30,7 +30,7 @@ def process():
     assert (len(subjects) == 5749), "Number of subjects is: {}!".format(len(subjects))
 
     file_names = []
-    for i in range(len(subjects)):
+    for i in tqdm(range(len(subjects))):
         sub = subjects[i]
         folder = os.path.join('data/lfw_funneled', sub)
         files = [f for f in os.listdir(folder) if
@@ -42,7 +42,7 @@ def process():
     assert (len(file_names) == 13233), "Number of files is: {}!".format(len(file_names))
 
     samples = []
-    for item in file_names:
+    for item in tqdm(file_names):
         filename = item['filename']
         class_id = item['class_id']
         sub = item['subject']
@@ -92,15 +92,16 @@ def evaluate(model):
 
     start = time.time()
     with torch.no_grad():
-        for line in lines:
+        for line in tqdm(lines):
             tokens = line.split()
             file0 = tokens[0]
             img0 = get_image(samples, transformer, file0)
             file1 = tokens[1]
             img1 = get_image(samples, transformer, file1)
-            imgs = torch.zeros([2, 3, 112, 112], dtype=torch.float)
+            imgs = torch.zeros([2, 3, 112, 112], dtype=torch.float, device=device)
             imgs[0] = img0
             imgs[1] = img1
+
             output = model(imgs)
 
             feature0 = output[0].cpu().numpy()
@@ -153,6 +154,12 @@ def visualize(threshold):
     plt.ylabel('theta j Distribution')
     plt.title(
         r'Histogram : mu_0={:.4f},sigma_0={:.4f}, mu_1={:.4f},sigma_1={:.4f}'.format(mu_0, sigma_0, mu_1, sigma_1))
+
+    print('threshold: ' + str(threshold))
+    print('mu_0: ' + str(mu_0))
+    print('sigma_0: ' + str(sigma_0))
+    print('mu_1: ' + str(mu_1))
+    print('sigma_1: ' + str(sigma_1))
 
     plt.legend(loc='upper right')
     plt.plot([threshold, threshold], [0, 0.05], 'k-', lw=2)
@@ -316,7 +323,7 @@ def lfw_test(model):
 if __name__ == "__main__":
     checkpoint = 'BEST_checkpoint.tar'
     checkpoint = torch.load(checkpoint)
-    model = checkpoint['model']
+    model = checkpoint['model'].module
     model = model.to(device)
     model.eval()
 

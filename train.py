@@ -106,7 +106,7 @@ def train_net(args):
                                             optimizer=optimizer,
                                             epoch=epoch,
                                             logger=logger)
-        # train_dataset.shuffle()
+
         writer.add_scalar('Train_Loss', train_loss, epoch)
         writer.add_scalar('Train_Top5_Accuracy', train_top5_accs, epoch)
 
@@ -115,26 +115,20 @@ def train_net(args):
         print('{} seconds'.format(delta.seconds))
 
         # One epoch's validation
-        if epoch > 10 and epoch % 2 == 0 and not args.full_log:
-            start = datetime.now()
-            lfw_acc, threshold = lfw_test(model)
-            writer.add_scalar('LFW Accuracy', lfw_acc, epoch)
+        lfw_acc, threshold = lfw_test(model)
+        writer.add_scalar('LFW_Accuracy', lfw_acc, epoch)
 
-            # Check if there was an improvement
-            is_best = lfw_acc > best_acc
-            best_acc = max(lfw_acc, best_acc)
-            if not is_best:
-                epochs_since_improvement += 1
-                print("\nEpochs since last improvement: %d\n" % (epochs_since_improvement,))
-            else:
-                epochs_since_improvement = 0
+        # Check if there was an improvement
+        is_best = lfw_acc > best_acc
+        best_acc = max(lfw_acc, best_acc)
+        if not is_best:
+            epochs_since_improvement += 1
+            print("\nEpochs since last improvement: %d\n" % (epochs_since_improvement,))
+        else:
+            epochs_since_improvement = 0
 
-            # Save checkpoint
-            save_checkpoint(epoch, epochs_since_improvement, model, metric_fc, optimizer, best_acc, is_best)
-
-            end = datetime.now()
-            delta = end - start
-            print('{} seconds'.format(delta.seconds))
+        # Save checkpoint
+        save_checkpoint(epoch, epochs_since_improvement, model, metric_fc, optimizer, best_acc, is_best)
 
 
 def train(train_loader, model, metric_fc, criterion, optimizer, epoch, logger):
