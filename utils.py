@@ -92,8 +92,8 @@ def load_3_channels_grayscale(filename):
 
 
 def align_face(img_fn, facial5points):
-    # raw = cv.imread(img_fn, True)   # BGR
-    raw = load_3_channels_grayscale(img_fn)
+    raw = cv.imread(img_fn, True)   # BGR
+    # raw = load_3_channels_grayscale(img_fn)
     facial5points = np.reshape(facial5points, (2, 5))
 
     crop_size = (image_h, image_w)
