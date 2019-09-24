@@ -81,8 +81,12 @@ def accuracy(scores, targets, k=1):
     return correct_total.item() * (100.0 / batch_size)
 
 
+from image_aug import image_aug
+
+
 def load_3_channels_grayscale(filename):
     img = cv.imread(filename)
+    img = image_aug(img)
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     img2 = np.zeros_like(img)
     img2[:, :, 0] = gray
@@ -92,8 +96,8 @@ def load_3_channels_grayscale(filename):
 
 
 def align_face(img_fn, facial5points):
-    raw = cv.imread(img_fn, True)   # BGR
-    # raw = load_3_channels_grayscale(img_fn)
+    # raw = cv.imread(img_fn, True)  # BGR
+    raw = load_3_channels_grayscale(img_fn)
     facial5points = np.reshape(facial5points, (2, 5))
 
     crop_size = (image_h, image_w)
