@@ -86,7 +86,7 @@ from imgaug import augmenters as iaa
 # Define our sequence of augmentation steps that will be applied to every image.
 seq = iaa.Sequential(
     [
-        iaa.GaussianBlur(sigma=1.5)
+        iaa.GaussianBlur(sigma=2.0)
     ]
 )
 
