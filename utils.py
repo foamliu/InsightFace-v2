@@ -3,7 +3,6 @@ import logging
 import math
 
 import cv2 as cv
-import numpy as np
 import torch
 from PIL import Image
 
@@ -81,7 +80,22 @@ def accuracy(scores, targets, k=1):
     return correct_total.item() * (100.0 / batch_size)
 
 
-from image_aug import image_aug
+import numpy as np
+from imgaug import augmenters as iaa
+
+# Define our sequence of augmentation steps that will be applied to every image.
+seq = iaa.Sequential(
+    [
+        iaa.GaussianBlur(sigma=0.5)
+    ]
+)
+
+
+def image_aug(src):
+    src = np.expand_dims(src, axis=0)
+    augs = seq.augment_images(src)
+    aug = augs[0]
+    return aug
 
 
 def load_3_channels_grayscale(filename):
