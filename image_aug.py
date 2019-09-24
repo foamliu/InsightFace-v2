@@ -6,18 +6,18 @@ if __name__ == "__main__":
     filename = 'data/lfw_funneled/Aaron_Eckhart/Aaron_Eckhart_0001.jpg'
     print(filename)
     img = cv.imread(filename)  # BGR
-    cv.imshow('', img)
+    cv.imshow('1', img)
     cv.waitKey(0)
 
     is_valid, bounding_boxes, landmarks = get_central_face_attributes(filename)
     img = align_face(filename, landmarks)
-    cv.imshow('', img)
+    cv.imshow('2', img)
     cv.waitKey(0)
 
     img = image_aug(img)  # RGB
-    cv.imshow('', img)
+    cv.imshow('3', img)
     cv.waitKey(0)
 
     img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    cv.imshow('', img)
+    cv.imshow('4', img)
     cv.waitKey(0)
