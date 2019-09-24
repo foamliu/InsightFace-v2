@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 from config import device
 from data_gen import data_transforms
-from utils import align_face, get_central_face_attributes, get_all_face_attributes, draw_bboxes
+from utils import align_face, get_central_face_attributes, get_all_face_attributes, draw_bboxes, blur_and_grayscale
 
 angles_file = 'data/angles.txt'
 lfw_pickle = 'data/lfw_funneled.pkl'
@@ -67,6 +67,7 @@ def get_image(samples, transformer, file):
     full_path = sample['full_path']
     landmarks = sample['landmarks']
     img = align_face(full_path, landmarks)  # BGR
+    img = blur_and_grayscale(img)
     img = img[..., ::-1]  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
     img = transformer(img)

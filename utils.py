@@ -98,8 +98,7 @@ def image_aug(src):
     return aug
 
 
-def load_3_channels_grayscale(filename):
-    img = cv.imread(filename)
+def blur_and_grayscale(img):
     img = image_aug(img)
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     img2 = np.zeros_like(img)
@@ -110,8 +109,7 @@ def load_3_channels_grayscale(filename):
 
 
 def align_face(img_fn, facial5points):
-    # raw = cv.imread(img_fn, True)  # BGR
-    raw = load_3_channels_grayscale(img_fn)
+    raw = cv.imread(img_fn, True)  # BGR
     facial5points = np.reshape(facial5points, (2, 5))
 
     crop_size = (image_h, image_w)
