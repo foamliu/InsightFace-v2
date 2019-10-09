@@ -67,7 +67,7 @@ def get_image(samples, transformer, file):
     full_path = sample['full_path']
     landmarks = sample['landmarks']
     img = align_face(full_path, landmarks)  # BGR
-    img = blur_and_grayscale(img)
+    # img = blur_and_grayscale(img)
     img = img[..., ::-1]  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
     img = transformer(img)
