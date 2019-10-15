@@ -26,8 +26,8 @@ MS-Celeb-1M dataset for training, 3,804,846 faces over 85,164 identities.
 
 
 ## Dependencies
-- Python 3.6.7
-- PyTorch 1.0.0
+- Python 3.6.8
+- PyTorch 1.3.0
 
 ## Usage
 
