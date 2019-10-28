@@ -4,16 +4,16 @@ from shutil import copyfile
 
 import numpy as np
 import torch
-from tensorboardX import SummaryWriter
 from torch import nn
 from torch.optim.lr_scheduler import StepLR
+from torch.utils.tensorboard import SummaryWriter
 
 from config import device, grad_clip, print_freq
 from data_gen import ArcFaceDataset
 from focal_loss import FocalLoss
 from lfw_eval import lfw_test
 from mobilenet_v2 import MobileNetV2
-from models import resnet18, resnet34, resnet50, resnet101, resnet152, resnet_face18, ArcMarginModel
+from models import resnet18, resnet34, resnet50, resnet101, resnet152, ArcMarginModel
 from utils import parse_args, save_checkpoint, AverageMeter, clip_gradient, accuracy, get_logger
 
 
@@ -51,7 +51,8 @@ def train_net(args):
         elif args.network == 'mobile':
             model = MobileNetV2()
         else:
-            model = resnet_face18(args.use_se)
+            raise TypeError('network {} is not supported.'.format(args.network))
+
         model = nn.DataParallel(model)
         metric_fc = ArcMarginModel(args)
         metric_fc = nn.DataParallel(metric_fc)
