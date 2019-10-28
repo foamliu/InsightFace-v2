@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 from shutil import copyfile
 
 import numpy as np
@@ -32,7 +31,7 @@ def train_net(args):
     np.random.seed(7)
     checkpoint = args.checkpoint
     start_epoch = 0
-    best_acc = 0
+    best_acc = float('-inf')
     writer = SummaryWriter()
     epochs_since_improvement = 0
 
@@ -92,28 +91,22 @@ def train_net(args):
 
     # Epochs
     for epoch in range(start_epoch, args.end_epoch):
-        scheduler.step(epoch)
-
-        start = datetime.now()
         # One epoch's training
-        train_loss, train_top5_accs = train(train_loader=train_loader,
-                                            model=model,
-                                            metric_fc=metric_fc,
-                                            criterion=criterion,
-                                            optimizer=optimizer,
-                                            epoch=epoch,
-                                            logger=logger)
+        train_loss, train_acc = train(train_loader=train_loader,
+                                      model=model,
+                                      metric_fc=metric_fc,
+                                      criterion=criterion,
+                                      optimizer=optimizer,
+                                      epoch=epoch,
+                                      logger=logger)
 
-        writer.add_scalar('Train_Loss', train_loss, epoch)
-        writer.add_scalar('Train_Top5_Accuracy', train_top5_accs, epoch)
-
-        end = datetime.now()
-        delta = end - start
-        print('{} seconds'.format(delta.seconds))
+        writer.add_scalar('model/train_loss', train_loss, epoch)
+        writer.add_scalar('model/train_acc', train_acc, epoch)
 
         # One epoch's validation
         lfw_acc, threshold = lfw_test(model)
-        writer.add_scalar('LFW_Accuracy', lfw_acc, epoch)
+        writer.add_scalar('model/valid_acc', lfw_acc, epoch)
+        writer.add_scalar('model/valid_thres', threshold, epoch)
 
         # Check if there was an improvement
         is_best = lfw_acc > best_acc
@@ -126,6 +119,8 @@ def train_net(args):
 
         # Save checkpoint
         save_checkpoint(epoch, epochs_since_improvement, model, metric_fc, optimizer, best_acc, is_best)
+
+        scheduler.step(epoch)
 
 
 def train(train_loader, model, metric_fc, criterion, optimizer, epoch, logger):
