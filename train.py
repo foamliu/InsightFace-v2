@@ -93,11 +93,6 @@ def train_net(args):
     for epoch in range(start_epoch, args.end_epoch):
         scheduler.step(epoch)
 
-        if args.full_log:
-            lfw_acc, threshold = lfw_test(model)
-            writer.add_scalar('LFW_Accuracy', lfw_acc, epoch)
-            full_log(epoch)
-
         start = datetime.now()
         # One epoch's training
         train_loss, train_top5_accs = train(train_loader=train_loader,
