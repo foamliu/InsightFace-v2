@@ -24,6 +24,7 @@ def clip_gradient(optimizer, grad_clip):
 
 
 def save_checkpoint(epoch, epochs_since_improvement, model, metric_fc, optimizer, acc, is_best):
+    print('saving checkpoint ...')
     state = {'epoch': epoch,
              'epochs_since_improvement': epochs_since_improvement,
              'acc': acc,
