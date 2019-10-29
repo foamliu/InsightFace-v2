@@ -53,7 +53,7 @@ def train_net(args):
         else:
             raise TypeError('network {} is not supported.'.format(args.network))
 
-        print(model)
+        # print(model)
         model = nn.DataParallel(model)
         metric_fc = ArcMarginModel(args)
         metric_fc = nn.DataParallel(metric_fc)
