@@ -28,8 +28,8 @@ def save_checkpoint(epoch, epochs_since_improvement, model, metric_fc, optimizer
     state = {'epoch': epoch,
              'epochs_since_improvement': epochs_since_improvement,
              'acc': acc,
-             'model': model.state_dict(),
-             'metric_fc': metric_fc.state_dict(),
+             'model': model,
+             'metric_fc': metric_fc,
              'optimizer': optimizer}
     # filename = 'checkpoint_' + str(epoch) + '_' + str(loss) + '.tar'
     filename = 'checkpoint.tar'
