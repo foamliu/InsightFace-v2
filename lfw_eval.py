@@ -11,7 +11,7 @@ import torch
 from PIL import Image
 from matplotlib import pyplot as plt
 from tqdm import tqdm
-
+from mobilenet_v2 import MobileNetV2
 from config import device
 from data_gen import data_transforms
 from utils import align_face, get_central_face_attributes, get_all_face_attributes, draw_bboxes, blur_and_grayscale
@@ -324,7 +324,9 @@ def lfw_test(model):
 if __name__ == "__main__":
     checkpoint = 'BEST_checkpoint.tar'
     checkpoint = torch.load(checkpoint)
-    model = checkpoint['model'].module
+    # model = checkpoint['model'].module
+    model = MobileNetV2()
+    model.load_state_dict(checkpoint['model'])
     model = model.to(device)
     model.eval()
 
