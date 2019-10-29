@@ -145,10 +145,10 @@ def train(train_loader, model, metric_fc, criterion, optimizer, epoch, logger):
         # Calculate loss
         loss = criterion(output, label)
 
-        try:
-            assert (not math.isnan(loss.item()))
-        except AssertionError:
-            continue
+        # try:
+        #     assert (not math.isnan(loss.item()))
+        # except AssertionError:
+        #     continue
 
         # Back prop.
         optimizer.zero_grad()
