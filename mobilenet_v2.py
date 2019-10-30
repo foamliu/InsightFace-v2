@@ -120,9 +120,10 @@ class MobileNetV2(nn.Module):
         self.quant = QuantStub()
         self.dequant = DeQuantStub()
         # building classifier
-        self.classifier = nn.Sequential(
+        self.embedder = nn.Sequential(
             nn.Dropout(0.2),
             nn.Linear(self.last_channel, emb_size),
+            nn.BatchNorm1d(512)
         )
 
         # weight initialization
@@ -144,7 +145,7 @@ class MobileNetV2(nn.Module):
 
         x = self.features(x)
         x = x.mean([2, 3])
-        x = self.classifier(x)
+        x = self.embedder(x)
         x = self.dequant(x)
         return x
 
