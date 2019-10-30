@@ -110,6 +110,7 @@ def evaluate(model):
             x0 = feature0 / np.linalg.norm(feature0)
             x1 = feature1 / np.linalg.norm(feature1)
             cosine = np.dot(x0, x1)
+            cosine = np.clip(cosine, -1.0, 1.0)
             theta = math.acos(cosine)
             theta = theta * 180 / math.pi
             is_same = tokens[2]
