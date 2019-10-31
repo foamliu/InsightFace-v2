@@ -50,6 +50,7 @@ def train_net(args):
             model = resnet152(args)
         elif args.network == 'mobile':
             model = MobileNetV2()
+            model.fuse_model()
         else:
             raise TypeError('network {} is not supported.'.format(args.network))
 
