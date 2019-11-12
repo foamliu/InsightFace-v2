@@ -14,10 +14,12 @@ from config import device
 from data_gen import data_transforms
 from utils import align_face, get_central_face_attributes
 
-checkpoint = 'BEST_checkpoint.tar'
-print('loading model: {}...'.format(checkpoint))
-checkpoint = torch.load(checkpoint)
-model = checkpoint['model'].to(device)
+# checkpoint = 'BEST_checkpoint.tar'
+# print('loading model: {}...'.format(checkpoint))
+# checkpoint = torch.load(checkpoint)
+# model = checkpoint['model'].to(device)
+scripted_model_file = 'mobilefacenet_scripted.pt'
+model = torch.jit.load(scripted_model_file)
 model.eval()
 transformer = data_transforms['val']
 
