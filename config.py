@@ -17,8 +17,8 @@ print_freq = 100  # print training/validation stats  every __ batches
 checkpoint = None  # path to checkpoint, None if none
 
 # Data parameters
-num_classes = 85164
-num_samples = 3804846
+num_classes = 93431
+num_samples = 5179510
 DATA_DIR = 'data'
 # faces_ms1m_folder = 'data/faces_ms1m_112x112'
 faces_ms1m_folder = 'data/ms1m-retinaface-t1'
