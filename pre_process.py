@@ -23,6 +23,8 @@ if __name__ == "__main__":
         header, s = recordio.unpack(imgrec.read_idx(i + 1))
         img = mx.image.imdecode(s).asnumpy()
         img = cv.cvtColor(img, cv.COLOR_RGB2BGR)
+        print(header.label)
+        print(type(header.label))
         label = int(header.label)
         filename = '{}.png'.format(i)
         samples.append({'img': filename, 'label': label})
