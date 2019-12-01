@@ -30,8 +30,10 @@ if __name__ == "__main__":
             cv.imwrite(filename, img)
         except KeyboardInterrupt:
             raise
-        except:
-            pass
+        except Exception as err:
+            print(err)
+            print(i)
+            # pass
 
     with open(pickle_file, 'wb') as file:
         pickle.dump(samples, file)
