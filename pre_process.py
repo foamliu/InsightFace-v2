@@ -22,6 +22,7 @@ if __name__ == "__main__":
         # try:
         header, s = recordio.unpack(imgrec.read_idx(i + 1))
         img = mx.image.imdecode(s).asnumpy()
+        print(img.shape)
         img = cv.cvtColor(img, cv.COLOR_RGB2BGR)
         print(header.label)
         print(type(header.label))
