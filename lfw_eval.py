@@ -11,10 +11,10 @@ import torch
 from PIL import Image
 from matplotlib import pyplot as plt
 from tqdm import tqdm
-from mobilenet_v2 import MobileNetV2
+
 from config import device
 from data_gen import data_transforms
-from utils import align_face, get_central_face_attributes, get_all_face_attributes, draw_bboxes, blur_and_grayscale
+from utils import align_face, get_central_face_attributes, get_all_face_attributes, draw_bboxes
 
 angles_file = 'data/angles.txt'
 lfw_pickle = 'data/lfw_funneled.pkl'
