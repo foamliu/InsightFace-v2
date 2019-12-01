@@ -12,6 +12,7 @@ from utils import ensure_folder
 if __name__ == "__main__":
     ensure_folder(IMG_DIR)
     imgrec = recordio.MXIndexedRecordIO(path_imgidx, path_imgrec, 'r')
+    print(len(imgrec))
 
     samples = []
 
