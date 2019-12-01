@@ -26,11 +26,11 @@ if __name__ == "__main__":
         img = cv.cvtColor(img, cv.COLOR_RGB2BGR)
         print(header.label)
         print(type(header.label))
-        label = int(header.label)
-        filename = '{}.png'.format(i)
-        samples.append({'img': filename, 'label': label})
-        filename = os.path.join(IMG_DIR, filename)
-        cv.imwrite(filename, img)
+        # label = int(header.label)
+        # filename = '{}.png'.format(i)
+        # samples.append({'img': filename, 'label': label})
+        # filename = os.path.join(IMG_DIR, filename)
+        # cv.imwrite(filename, img)
         # except KeyboardInterrupt:
         #     raise
         # except Exception as err:
