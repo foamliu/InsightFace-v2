@@ -5,7 +5,7 @@ import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
 from torch import nn
 from torch.nn import Parameter
-from torchsummary import summary
+from torchscope import scope
 
 from config import device, num_classes
 
@@ -358,7 +358,8 @@ class ArcMarginModel(nn.Module):
 
 
 if __name__ == "__main__":
-    # args = parse_args()
-    # model = resnet152(args).to(device)
-    model = MobileNet(1.0).to(device)
-    summary(model, (3, 112, 112))
+    from utils import parse_args
+    args = parse_args()
+    model = resnet152(args)
+    # model = MobileNet(1.0)
+    scope(model, (3, 112, 112))
