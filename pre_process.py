@@ -16,8 +16,8 @@ if __name__ == "__main__":
 
     samples = []
 
-    # %% 1 ~ 3804847
-    for i in tqdm(range(10000000)):
+    # %% 1 ~ 5179510
+    for i in tqdm(range(5179510)):
         # print(i)
         try:
             header, s = recordio.unpack(imgrec.read_idx(i + 1))
@@ -36,6 +36,7 @@ if __name__ == "__main__":
         except Exception as err:
             print(err)
             print(i)
+            print(label)
             # pass
 
     with open(pickle_file, 'wb') as file:
