@@ -27,7 +27,7 @@ if __name__ == "__main__":
             # print(header.label)
             # print(type(header.label))
             label = int(header.label[0])
-            filename = '{}.png'.format(i)
+            filename = '{}.jpg'.format(i)
             samples.append({'img': filename, 'label': label})
             filename = os.path.join(IMG_DIR, filename)
             cv.imwrite(filename, img)
