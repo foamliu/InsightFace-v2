@@ -8,7 +8,7 @@ from PIL import Image
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
 from config import image_h, image_w
-from mtcnn.detector import detect_faces
+from retinaface.detector import detect_faces
 
 
 def clip_gradient(optimizer, grad_clip):
