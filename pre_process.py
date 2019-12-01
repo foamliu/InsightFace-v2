@@ -16,7 +16,7 @@ if __name__ == "__main__":
     samples = []
 
     # %% 1 ~ 3804847
-    for i in tqdm(range(3804846)):
+    for i in tqdm(range(len(imgrec))):
         try:
             header, s = recordio.unpack(imgrec.read_idx(i + 1))
             img = mx.image.imdecode(s).asnumpy()
