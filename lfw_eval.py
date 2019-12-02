@@ -46,12 +46,17 @@ def process():
         filename = item['filename']
         class_id = item['class_id']
         sub = item['subject']
-        is_valid, bounding_boxes, landmarks = get_central_face_attributes(filename)
 
-        if is_valid:
+        try:
+            bboxes, landmarks = get_central_face_attributes(filename)
+
             samples.append(
-                {'class_id': class_id, 'subject': sub, 'full_path': filename, 'bounding_boxes': bounding_boxes,
+                {'class_id': class_id, 'subject': sub, 'full_path': filename, 'bounding_boxes': bboxes,
                  'landmarks': landmarks})
+        except KeyboardInterrupt:
+            raise
+        except Exception as err:
+            print(err)
 
     with open(lfw_pickle, 'wb') as file:
         save = {

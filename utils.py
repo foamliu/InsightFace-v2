@@ -2,8 +2,8 @@ import argparse
 import logging
 
 import cv2 as cv
+import numpy as np
 import torch
-from PIL import Image
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
 from config import image_h, image_w
@@ -80,34 +80,6 @@ def accuracy(scores, targets, k=1):
     return correct_total.item() * (100.0 / batch_size)
 
 
-import numpy as np
-from imgaug import augmenters as iaa
-
-# Define our sequence of augmentation steps that will be applied to every image.
-seq = iaa.Sequential(
-    [
-        iaa.GaussianBlur(sigma=3.0)
-    ]
-)
-
-
-def image_aug(src):
-    src = np.expand_dims(src, axis=0)
-    augs = seq.augment_images(src)
-    aug = augs[0]
-    return aug
-
-
-def blur_and_grayscale(img):
-    img = image_aug(img)
-    gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    img2 = np.zeros_like(img)
-    img2[:, :, 0] = gray
-    img2[:, :, 1] = gray
-    img2[:, :, 2] = gray
-    return img2
-
-
 def align_face(img_fn, facial5points):
     raw = cv.imread(img_fn, True)  # BGR
     facial5points = np.reshape(facial5points, (2, 5))
@@ -139,8 +111,8 @@ def get_face_attributes(full_path):
 
     except KeyboardInterrupt:
         raise
-    except:
-        pass
+    except Exception as err:
+        print(err)
     return False, None
 
 
@@ -160,24 +132,18 @@ def select_significant_face(bboxes):
 
 
 def get_central_face_attributes(full_path):
-    try:
-        img = Image.open(full_path).convert('RGB')
-        bboxes, landmarks = detect_faces(img)
+    img = cv.imread(full_path, cv.IMREAD_COLOR)
+    bboxes, landmarks = detect_faces(img)
 
-        if len(landmarks) > 0:
-            i = select_significant_face(bboxes)
-            return True, [bboxes[i]], [landmarks[i]]
+    if len(landmarks) > 0:
+        i = select_significant_face(bboxes)
+        return [bboxes[i]], [landmarks[i]]
 
-    except KeyboardInterrupt:
-        raise
-    except Exception as err:
-        print(err)
-
-    return False, None, None
+    return None, None
 
 
 def get_all_face_attributes(full_path):
-    img = Image.open(full_path).convert('RGB')
+    img = cv.imread(full_path, cv.IMREAD_COLOR)
     bounding_boxes, landmarks = detect_faces(img)
     return bounding_boxes, landmarks
 
