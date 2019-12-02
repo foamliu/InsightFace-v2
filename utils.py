@@ -144,10 +144,10 @@ def get_face_attributes(full_path):
     return False, None
 
 
-def select_significant_face(bounding_boxes):
+def select_significant_face(bboxes):
     best_index = -1
     best_rank = float('-inf')
-    for i, b in enumerate(bounding_boxes):
+    for i, b in enumerate(bboxes):
         bbox_w, bbox_h = b[2] - b[0], b[3] - b[1]
         area = bbox_w * bbox_h
         score = b[4]
@@ -162,11 +162,11 @@ def select_significant_face(bounding_boxes):
 def get_central_face_attributes(full_path):
     try:
         img = Image.open(full_path).convert('RGB')
-        bounding_boxes, landmarks = detect_faces(img)
+        bboxes, landmarks = detect_faces(img)
 
         if len(landmarks) > 0:
-            i = select_significant_face(img.size, bounding_boxes)
-            return True, [bounding_boxes[i]], [landmarks[i]]
+            i = select_significant_face(bboxes)
+            return True, [bboxes[i]], [landmarks[i]]
 
     except KeyboardInterrupt:
         raise
