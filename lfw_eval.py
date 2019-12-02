@@ -260,7 +260,7 @@ def error_analysis(threshold):
 
 def save_aligned(old_fn, new_fn):
     old_fn = os.path.join('data/lfw_funneled', old_fn)
-    is_valid, bounding_boxes, landmarks = get_central_face_attributes(old_fn)
+    _, landmarks = get_central_face_attributes(old_fn)
     img = align_face(old_fn, landmarks)
     new_fn = os.path.join('images', new_fn)
     cv.imwrite(new_fn, img)
@@ -269,8 +269,8 @@ def save_aligned(old_fn, new_fn):
 def copy_file(old, new):
     old_fn = os.path.join('data/lfw_funneled', old)
     img = cv.imread(old_fn)
-    bounding_boxes, landmarks = get_all_face_attributes(old_fn)
-    draw_bboxes(img, bounding_boxes, landmarks)
+    bboxes, landmarks = get_all_face_attributes(old_fn)
+    draw_bboxes(img, bboxes, landmarks)
     cv.resize(img, (224, 224))
     new_fn = os.path.join('images', new)
     cv.imwrite(new_fn, img)
