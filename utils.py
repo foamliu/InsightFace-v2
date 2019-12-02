@@ -1,6 +1,5 @@
 import argparse
 import logging
-import math
 
 import cv2 as cv
 import torch
@@ -131,7 +130,7 @@ def align_face(img_fn, facial5points):
 
 def get_face_attributes(full_path):
     try:
-        img = Image.open(full_path).convert('RGB')
+        img = cv.imread(full_path, cv.IMREAD_COLOR)
         bounding_boxes, landmarks = detect_faces(img)
 
         if len(landmarks) > 0:
@@ -145,21 +144,19 @@ def get_face_attributes(full_path):
     return False, None
 
 
-def select_central_face(im_size, bounding_boxes):
-    width, height = im_size
-    nearest_index = -1
-    nearest_distance = 100000
+def select_significant_face(bounding_boxes):
+    best_index = -1
+    best_rank = float('-inf')
     for i, b in enumerate(bounding_boxes):
-        x_box_center = (b[0] + b[2]) / 2
-        y_box_center = (b[1] + b[3]) / 2
-        x_img = width / 2
-        y_img = height / 2
-        distance = math.sqrt((x_box_center - x_img) ** 2 + (y_box_center - y_img) ** 2)
-        if distance < nearest_distance:
-            nearest_distance = distance
-            nearest_index = i
+        bbox_w, bbox_h = b[2] - b[0], b[3] - b[1]
+        area = bbox_w * bbox_h
+        score = b[4]
+        rank = score * area
+        if rank > best_rank:
+            best_rank = rank
+            best_index = i
 
-    return nearest_index
+    return best_index
 
 
 def get_central_face_attributes(full_path):
@@ -168,13 +165,14 @@ def get_central_face_attributes(full_path):
         bounding_boxes, landmarks = detect_faces(img)
 
         if len(landmarks) > 0:
-            i = select_central_face(img.size, bounding_boxes)
+            i = select_significant_face(img.size, bounding_boxes)
             return True, [bounding_boxes[i]], [landmarks[i]]
 
     except KeyboardInterrupt:
         raise
-    except:
-        pass
+    except Exception as err:
+        print(err)
+
     return False, None, None
 
 
