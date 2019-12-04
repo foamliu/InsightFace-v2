@@ -12,7 +12,7 @@ from focal_loss import FocalLoss
 from lfw_eval import lfw_test
 from models import resnet18, resnet34, resnet50, resnet101, resnet152, ArcMarginModel
 from optimizer import InsightFaceOptimizer
-from utils import parse_args, save_checkpoint, AverageMeter, clip_gradient, accuracy, get_logger
+from utils import parse_args, save_checkpoint, AverageMeter, accuracy, get_logger
 
 
 def full_log(epoch):
@@ -146,7 +146,7 @@ def train(train_loader, model, metric_fc, criterion, optimizer, epoch, logger):
         loss.backward()
 
         # Clip gradients
-        clip_gradient(optimizer, grad_clip)
+        optimizer.clip_gradient(grad_clip)
 
         # Update weights
         optimizer.step()
