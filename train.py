@@ -1,4 +1,3 @@
-import math
 import os
 from shutil import copyfile
 
@@ -13,6 +12,7 @@ from data_gen import ArcFaceDataset
 from focal_loss import FocalLoss
 from lfw_eval import lfw_test
 from models import resnet18, resnet34, resnet50, resnet101, resnet152, ArcMarginModel
+from optimizer import InsightFaceOptimizer
 from utils import parse_args, save_checkpoint, AverageMeter, clip_gradient, accuracy, get_logger
 
 
@@ -56,11 +56,13 @@ def train_net(args):
         metric_fc = nn.DataParallel(metric_fc)
 
         if args.optimizer == 'sgd':
-            optimizer = torch.optim.SGD([{'params': model.parameters()}, {'params': metric_fc.parameters()}],
-                                        lr=args.lr, momentum=args.mom, weight_decay=args.weight_decay)
+            optimizer = InsightFaceOptimizer(
+                torch.optim.SGD([{'params': model.parameters()}, {'params': metric_fc.parameters()}],
+                                lr=args.lr, momentum=args.mom, weight_decay=args.weight_decay))
         else:
-            optimizer = torch.optim.Adam([{'params': model.parameters()}, {'params': metric_fc.parameters()}],
-                                         lr=args.lr, weight_decay=args.weight_decay)
+            optimizer = InsightFaceOptimizer(
+                torch.optim.Adam([{'params': model.parameters()}, {'params': metric_fc.parameters()}],
+                                 lr=args.lr, weight_decay=args.weight_decay))
 
     else:
         checkpoint = torch.load(checkpoint)
@@ -137,15 +139,10 @@ def train(train_loader, model, metric_fc, criterion, optimizer, epoch, logger):
 
         # Forward prop.
         feature = model(img)  # embedding => [N, 512]
-        output = metric_fc(feature, label)  # class_id_out => [N, 10575]
+        output = metric_fc(feature, label)  # class_id_out => [N, 93431]
 
         # Calculate loss
         loss = criterion(output, label)
-
-        # try:
-        #     assert (not math.isnan(loss.item()))
-        # except AssertionError:
-        #     continue
 
         # Back prop.
         optimizer.zero_grad()
