@@ -4,7 +4,6 @@ from shutil import copyfile
 import numpy as np
 import torch
 from torch import nn
-from torch.optim.lr_scheduler import StepLR
 from torch.utils.tensorboard import SummaryWriter
 
 from config import device, grad_clip, print_freq
@@ -88,8 +87,6 @@ def train_net(args):
     train_dataset = ArcFaceDataset('train')
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=4)
 
-    scheduler = StepLR(optimizer, step_size=args.lr_step, gamma=0.1)
-
     # Epochs
     for epoch in range(start_epoch, args.end_epoch):
         # One epoch's training
@@ -104,7 +101,7 @@ def train_net(args):
         writer.add_scalar('model/train_loss', train_loss, epoch)
         writer.add_scalar('model/train_acc', train_acc, epoch)
 
-        logger.info('\nCurrent effective learning rate: {}, step number: {}\n'.format(optimizer.lr, optimizer.step_num))
+        logger.info('Learning rate={}, step number={}\n'.format(optimizer.lr, optimizer.step_num))
 
         # One epoch's validation
         lfw_acc, threshold = lfw_test(model)
@@ -122,8 +119,6 @@ def train_net(args):
 
         # Save checkpoint
         save_checkpoint(epoch, epochs_since_improvement, model, metric_fc, optimizer, best_acc, is_best)
-
-        scheduler.step(epoch)
 
 
 def train(train_loader, model, metric_fc, criterion, optimizer, epoch, logger):
